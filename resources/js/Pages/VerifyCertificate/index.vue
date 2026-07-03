@@ -5,8 +5,8 @@ import CertificateForm from './components/CertificateForm.vue';
 import HelpStrip from './components/HelpStrip.vue';
 import PageHero from './components/PageHero.vue';
 import ResultCard from './components/ResultCard.vue';
-import SiteFooter from './components/SiteFooter.vue';
-import SiteHeader from './components/SiteHeader.vue';
+import SiteFooter from '@/global/SiteFooter.vue';
+import SiteHeader from '@/global/SiteHeader.vue';
 
 const query = ref('');
 const status = ref('idle');

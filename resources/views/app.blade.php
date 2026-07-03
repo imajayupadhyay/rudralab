@@ -8,7 +8,6 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
         <!-- Scripts -->
-        @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>

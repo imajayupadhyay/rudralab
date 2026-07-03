@@ -1,7 +1,35 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 
+const page = usePage();
 const menuOpen = ref(false);
+
+const currentPath = computed(() => {
+    const url = page.url || '/';
+
+    return url.split('?')[0].split('#')[0] || '/';
+});
+
+const isActive = (path) => currentPath.value === path;
+
+const linkStyle = (path) => ({
+    textDecoration: 'none',
+    color: isActive(path) ? '#234A3E' : '#1C1B19',
+    fontSize: '14px',
+    fontWeight: isActive(path) ? '600' : '500',
+});
+
+const mobileLinkStyle = (path) => ({
+    textDecoration: 'none',
+    color: isActive(path) ? '#234A3E' : '#1C1B19',
+    fontSize: '15px',
+    fontWeight: isActive(path) ? '600' : '500',
+});
+
+const closeMenu = () => {
+    menuOpen.value = false;
+};
 </script>
 
 <template>
@@ -11,7 +39,11 @@ const menuOpen = ref(false);
         <div
             style="max-width:1200px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;"
         >
-            <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;">
+            <a
+                href="/"
+                style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;"
+                @click="closeMenu"
+            >
                 <span
                     style="display:grid;place-items:center;width:38px;height:38px;border:1px solid #234A3E;border-radius:50%;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:19px;color:#234A3E;"
                 >R</span>
@@ -25,21 +57,15 @@ const menuOpen = ref(false);
                 </span>
             </a>
 
-            <nav style="display:flex;align-items:center;gap:38px;" class="vgtl-desktop-nav">
+            <nav
+                style="display:flex;align-items:center;gap:38px;"
+                class="vgtl-desktop-nav"
+            >
+                <a href="/" :style="linkStyle('/')">Home</a>
+                <a href="/verify-certificate" :style="linkStyle('/verify-certificate')">Verify Certificate</a>
+                <a href="/contact" :style="linkStyle('/contact')">Contact Us</a>
                 <a
-                    href="/"
-                    style="text-decoration:none;color:#1C1B19;font-size:14px;font-weight:500;"
-                >Home</a>
-                <a
-                    href="/verify-certificate"
-                    style="text-decoration:none;color:#234A3E;font-size:14px;font-weight:600;"
-                >Verify Certificate</a>
-                <a
-                    href="/contact"
-                    style="text-decoration:none;color:#1C1B19;font-size:14px;font-weight:500;"
-                >Contact Us</a>
-                <a
-                    href="/contact"
+                    href="/contact#form"
                     style="text-decoration:none;background:#234A3E;color:#F6F4EF;font-size:13px;font-weight:600;padding:10px 20px;border-radius:100px;"
                 >Get Certified</a>
             </nav>
@@ -61,18 +87,13 @@ const menuOpen = ref(false);
             v-if="menuOpen"
             style="border-top:1px solid rgba(28,27,25,0.09);padding:14px 32px 22px;display:flex;flex-direction:column;gap:16px;"
         >
-            <a
-                href="/"
-                style="text-decoration:none;color:#1C1B19;font-size:15px;font-weight:500;"
-            >Home</a>
+            <a href="/" :style="mobileLinkStyle('/')" @click="closeMenu">Home</a>
             <a
                 href="/verify-certificate"
-                style="text-decoration:none;color:#234A3E;font-size:15px;font-weight:600;"
+                :style="mobileLinkStyle('/verify-certificate')"
+                @click="closeMenu"
             >Verify Certificate</a>
-            <a
-                href="/contact"
-                style="text-decoration:none;color:#1C1B19;font-size:15px;font-weight:500;"
-            >Contact Us</a>
+            <a href="/contact" :style="mobileLinkStyle('/contact')" @click="closeMenu">Contact Us</a>
         </div>
     </header>
 </template>

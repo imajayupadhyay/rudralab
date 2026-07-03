@@ -4,8 +4,8 @@ import { Head } from '@inertiajs/vue3';
 import ContactGrid from './components/ContactGrid.vue';
 import HoursBanner from './components/HoursBanner.vue';
 import PageHero from './components/PageHero.vue';
-import SiteFooter from './components/SiteFooter.vue';
-import SiteHeader from './components/SiteHeader.vue';
+import SiteFooter from '@/global/SiteFooter.vue';
+import SiteHeader from '@/global/SiteHeader.vue';
 
 const sent = ref(false);
 const form = reactive({

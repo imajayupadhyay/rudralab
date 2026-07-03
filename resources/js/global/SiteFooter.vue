@@ -23,7 +23,7 @@
                     Navigate
                 </div>
                 <div style="display:flex;flex-direction:column;gap:12px;">
-                    <a href="#top" style="text-decoration:none;color:#1C1B19;font-size:14px;">Home</a>
+                    <a href="/" style="text-decoration:none;color:#1C1B19;font-size:14px;">Home</a>
                     <a
                         href="/verify-certificate"
                         style="text-decoration:none;color:#1C1B19;font-size:14px;"
@@ -52,7 +52,7 @@
                 style="max-width:1200px;margin:0 auto;padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"
             >
                 <span style="font-size:12.5px;color:#9A968D;">
-                    © 2026 RBTL Rudra Beads Testing Lab. All rights reserved.
+                    &copy; 2026 RBTL Rudra Beads Testing Lab. All rights reserved.
                 </span>
                 <span style="font-size:12.5px;color:#9A968D;">Authentic beads. Transparent testing.</span>
             </div>
