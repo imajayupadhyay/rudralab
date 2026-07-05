@@ -7,6 +7,11 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
+        <!-- Signature script font for certificate cards -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
         <!-- Scripts -->
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead

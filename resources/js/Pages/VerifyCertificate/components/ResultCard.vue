@@ -298,7 +298,7 @@ onBeforeUnmount(() => {
                             style="width:100%;height:165px;object-fit:cover;object-position:center;border-radius:4px;"
                         />
                         <div style="display:flex;flex-direction:column;align-items:center;line-height:1;">
-                            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:#173F58;transform:rotate(-6deg);">{{ preview.signature_name }}</span>
+                            <span style="font-family:'Great Vibes',cursive;font-size:24px;line-height:1;white-space:nowrap;color:#173F58;transform:rotate(-3deg);padding:0 6px;">{{ preview.signature_name }}</span>
                             <span style="width:100%;height:1px;background:rgba(28,27,25,0.35);margin-top:2px;"></span>
                             <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#6B6862;margin-top:4px;">{{ preview.signature_label }}</span>
                         </div>
