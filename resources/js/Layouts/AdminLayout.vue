@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { Link, router, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 
 defineProps({
     title: {
@@ -39,6 +39,10 @@ const logout = () => {
 </script>
 
 <template>
+    <Head>
+        <meta name="robots" content="noindex,nofollow,noarchive" />
+    </Head>
+
     <div class="rbtl-admin-shell">
         <aside class="rbtl-admin-sidebar" :class="{ 'is-open': sidebarOpen }">
             <div class="rbtl-admin-brand">

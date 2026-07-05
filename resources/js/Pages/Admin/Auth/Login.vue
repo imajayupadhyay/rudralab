@@ -15,7 +15,9 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="RBTL Admin Login" />
+    <Head title="RBTL Admin Login">
+        <meta name="robots" content="noindex,nofollow,noarchive" />
+    </Head>
 
     <main class="rbtl-login-page">
         <section class="rbtl-login-panel">

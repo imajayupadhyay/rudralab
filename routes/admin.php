@@ -11,10 +11,12 @@ use App\Http\Controllers\Admin\VerifyCertificatePageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('rbtl-secure-login', [AuthController::class, 'showLogin'])->name('admin.login');
-Route::post('rbtl-secure-login', [AuthController::class, 'login'])->name('admin.login.store');
+Route::middleware('noindex')->group(function () {
+    Route::get('rbtl-secure-login', [AuthController::class, 'showLogin'])->name('admin.login');
+    Route::post('rbtl-secure-login', [AuthController::class, 'login'])->name('admin.login.store');
+});
 
-Route::prefix('rbtl')->name('admin.')->group(function () {
+Route::prefix('rbtl')->name('admin.')->middleware('noindex')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('dashboard', DashboardController::class)->name('dashboard');
