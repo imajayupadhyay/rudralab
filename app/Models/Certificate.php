@@ -78,6 +78,37 @@ class Certificate extends Model
         ];
     }
 
+    public static function nextDuplicateNumber(string $certificateNumber): string
+    {
+        $certificateNumber = trim($certificateNumber);
+
+        if (preg_match('/^(.*?)(\d+)$/', $certificateNumber, $matches)) {
+            $prefix = $matches[1];
+            $number = (int) $matches[2];
+            $padding = strlen($matches[2]);
+        } else {
+            $prefix = str($certificateNumber)->limit(78, '')->toString().'-';
+            $number = 0;
+            $padding = 1;
+        }
+
+        do {
+            $number++;
+            $nextNumber = $prefix.str_pad((string) $number, $padding, '0', STR_PAD_LEFT);
+        } while (self::withTrashed()->where('normalized_certificate_number', self::normalizeNumber($nextNumber))->exists());
+
+        return $nextNumber;
+    }
+
+    public function duplicateFormData(): array
+    {
+        return [
+            ...$this->formData(),
+            'id' => null,
+            'certificate_number' => self::nextDuplicateNumber($this->certificate_number),
+        ];
+    }
+
     public function formData(): array
     {
         return [

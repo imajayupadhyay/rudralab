@@ -84,7 +84,8 @@ const destroyCertificate = (certificate) => {
                                 </span>
                             </td>
                             <td class="rbtl-row-actions">
-                                <Link :href="`/rbtl/certificates/${certificate.id}/edit`">Edit</Link>
+                                <Link class="duplicate" :href="`/rbtl/certificates/${certificate.id}/duplicate`">Duplicate</Link>
+                                <Link class="edit" :href="`/rbtl/certificates/${certificate.id}/edit`">Edit</Link>
                                 <button type="button" @click="destroyCertificate(certificate)">Delete</button>
                             </td>
                         </tr>
@@ -228,20 +229,40 @@ const destroyCertificate = (certificate) => {
 
 .rbtl-row-actions a,
 .rbtl-row-actions button {
+    align-items: center;
+    border-radius: 8px;
+    box-sizing: border-box;
     display: inline-flex;
+    font-size: 13px;
+    font-weight: 800;
+    justify-content: center;
     margin-left: 8px;
+    min-height: 34px;
+    padding: 8px 12px;
     text-decoration: none;
 }
 
 .rbtl-row-actions a {
+    border: 1px solid rgba(35, 74, 62, 0.2);
     color: #234a3e;
-    font-size: 13px;
-    font-weight: 800;
+}
+
+.rbtl-row-actions a.duplicate {
+    background: rgba(35, 74, 62, 0.1);
+}
+
+.rbtl-row-actions a.edit {
+    background: #234a3e;
+    color: #f6f4ef;
+}
+
+.rbtl-row-actions a:hover {
+    transform: translateY(-1px);
 }
 
 .rbtl-row-actions button {
     background: #b24a3e;
-    padding: 8px 11px;
+    padding: 8px 12px;
 }
 
 .rbtl-empty-cell {

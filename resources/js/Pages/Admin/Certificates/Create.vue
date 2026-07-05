@@ -8,13 +8,17 @@ defineProps({
         type: Object,
         required: true,
     },
+    duplicateSource: {
+        type: Object,
+        default: null,
+    },
 });
 </script>
 
 <template>
-    <Head title="Add Certificate" />
+    <Head :title="duplicateSource ? 'Duplicate Certificate' : 'Add Certificate'" />
 
-    <AdminLayout title="Add Certificate" eyebrow="Certificate Registry">
-        <CertificateForm :certificate="certificate" mode="create" />
+    <AdminLayout :title="duplicateSource ? 'Duplicate Certificate' : 'Add Certificate'" eyebrow="Certificate Registry">
+        <CertificateForm :certificate="certificate" :duplicate-source="duplicateSource" :mode="duplicateSource ? 'duplicate' : 'create'" />
     </AdminLayout>
 </template>

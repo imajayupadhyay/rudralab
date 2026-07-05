@@ -11,9 +11,28 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    duplicateSource: {
+        type: Object,
+        default: null,
+    },
 });
 
 const isEdit = computed(() => props.mode === 'edit');
+const isDuplicate = computed(() => props.mode === 'duplicate');
+const formModeLabel = computed(() => {
+    if (isEdit.value) {
+        return 'Update';
+    }
+
+    return isDuplicate.value ? 'Duplicate' : 'Create';
+});
+const formTitle = computed(() => {
+    if (isEdit.value) {
+        return props.certificate.certificate_number;
+    }
+
+    return isDuplicate.value ? 'Duplicate certificate record' : 'New certificate record';
+});
 
 const form = useForm({
     certificate_number: props.certificate.certificate_number || '',
@@ -59,11 +78,15 @@ const setImage = (event) => {
     <form class="rbtl-admin-card rbtl-cert-form" @submit.prevent="submit">
         <div class="rbtl-cert-form-head">
             <div>
-                <span>{{ isEdit ? 'Update' : 'Create' }}</span>
-                <h2>{{ isEdit ? certificate.certificate_number : 'New certificate record' }}</h2>
+                <span>{{ formModeLabel }}</span>
+                <h2>{{ formTitle }}</h2>
+                <p v-if="isDuplicate && duplicateSource">
+                    Copied from {{ duplicateSource.certificate_number }}. New number: {{ form.certificate_number }}.
+                </p>
             </div>
             <div class="rbtl-cert-form-actions">
                 <Link href="/rbtl/certificates">Cancel</Link>
+                <Link v-if="isEdit" :href="`/rbtl/certificates/${certificate.id}/duplicate`">Duplicate</Link>
                 <button type="submit" :disabled="form.processing">
                     {{ form.processing ? 'Saving...' : 'Save Certificate' }}
                 </button>
@@ -190,6 +213,12 @@ const setImage = (event) => {
     font-size: 32px;
     line-height: 1;
     margin: 6px 0 0;
+}
+
+.rbtl-cert-form-head p {
+    color: #6b6862;
+    font-size: 13px;
+    margin: 8px 0 0;
 }
 
 .rbtl-cert-form-actions {

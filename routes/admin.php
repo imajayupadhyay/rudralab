@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\ContactPageController;
 use App\Http\Controllers\Admin\ContactSubmissionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\VerifyCertificatePageController;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +27,11 @@ Route::prefix('rbtl')->name('admin.')->middleware('noindex')->group(function () 
         Route::put('verify-certificate-page', [VerifyCertificatePageController::class, 'update'])->name('verify-page.update');
         Route::get('contact-page', [ContactPageController::class, 'edit'])->name('contact-page.edit');
         Route::put('contact-page', [ContactPageController::class, 'update'])->name('contact-page.update');
+        Route::get('footer', [FooterController::class, 'edit'])->name('footer.edit');
+        Route::put('footer', [FooterController::class, 'update'])->name('footer.update');
         Route::resource('contact-submissions', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
         Route::resource('users', AdminUserController::class)->except(['show']);
+        Route::get('certificates/{certificate}/duplicate', [CertificateController::class, 'duplicate'])->name('certificates.duplicate');
         Route::resource('certificates', CertificateController::class)->except(['show']);
         Route::get('content', fn () => Inertia::render('Admin/Placeholder', [
             'title' => 'Content Blocks',

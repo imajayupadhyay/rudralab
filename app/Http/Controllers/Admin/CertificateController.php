@@ -50,6 +50,7 @@ class CertificateController extends Controller
     {
         return Inertia::render('Admin/Certificates/Create', [
             'certificate' => Certificate::emptyFormData(),
+            'duplicateSource' => null,
         ]);
     }
 
@@ -59,6 +60,17 @@ class CertificateController extends Controller
 
         return redirect()->route('admin.certificates.index')
             ->with('success', 'Certificate created successfully.');
+    }
+
+    public function duplicate(Certificate $certificate): Response
+    {
+        return Inertia::render('Admin/Certificates/Create', [
+            'certificate' => $certificate->duplicateFormData(),
+            'duplicateSource' => [
+                'id' => $certificate->id,
+                'certificate_number' => $certificate->certificate_number,
+            ],
+        ]);
     }
 
     public function edit(Certificate $certificate): Response

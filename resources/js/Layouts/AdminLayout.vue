@@ -26,6 +26,7 @@ const navItems = [
     { label: 'Homepage', href: '/rbtl/homepage' },
     { label: 'Verify Page', href: '/rbtl/verify-certificate-page' },
     { label: 'Contact Page', href: '/rbtl/contact-page' },
+    { label: 'Footer', href: '/rbtl/footer' },
     { label: 'Form Leads', href: '/rbtl/contact-submissions' },
     { label: 'Certificates', href: '/rbtl/certificates' },
     { label: 'Users', href: '/rbtl/users' },
