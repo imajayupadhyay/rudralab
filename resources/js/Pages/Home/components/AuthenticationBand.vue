@@ -19,7 +19,7 @@ defineProps({
                     What we test
                 </h2>
                 <span style="font-size:13px;color:rgba(237,234,226,0.6);letter-spacing:0.04em;">
-                    Rudra beads testing and certification
+                    Rudra beads &amp; gems testing and certification
                 </span>
             </div>
 

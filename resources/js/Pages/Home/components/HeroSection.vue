@@ -10,7 +10,7 @@
                 <span style="width:6px;height:6px;border-radius:50%;background:#234A3E;"></span>
                 <span
                     style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#234A3E;font-weight:600;"
-                >Rudra Beads Testing Lab</span>
+                >Rudra Beads &amp; Gems Testing Lab</span>
             </div>
 
             <h1
@@ -20,7 +20,7 @@
             </h1>
 
             <p style="font-size:16.5px;line-height:1.7;color:#4A4842;max-width:520px;margin:0 0 36px;">
-                RBTL is a dedicated Rudra beads testing lab focused on reliable Rudraksha identification, Mukhi
+                RBTL is a dedicated Rudra beads &amp; gems testing lab focused on reliable Rudraksha identification, Mukhi
                 verification, X-Ray structure review, and transparent certification backed by trained experts.
             </p>
 

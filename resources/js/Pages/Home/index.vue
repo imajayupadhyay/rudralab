@@ -11,14 +11,14 @@ import VisionMissionSection from './components/VisionMissionSection.vue';
 import WelcomeSection from './components/WelcomeSection.vue';
 
 const stats = [
-    { value: 'RBTL', label: 'Dedicated Rudra beads testing lab' },
+    { value: 'RBTL', label: 'Dedicated Rudra beads & gems testing lab' },
     { value: '5+', label: 'Quality and identity checks' },
     { value: 'X-Ray', label: 'Mukhi structure analysis' },
     { value: '100%', label: 'Integrity & transparency' },
 ];
 
 const checklist = [
-    'Rudraksha Beads Testing',
+    'Rudraksha Beads & Gems Testing',
     'Mukhi Identification',
     'X-Ray Structure Review',
     'Natural Origin Assessment',
@@ -26,7 +26,7 @@ const checklist = [
 ];
 
 const mission = [
-    'Provide accurate and dependable Rudra beads certification',
+    'Provide accurate and dependable Rudra beads & gems certification',
     'Make Rudraksha testing accessible to everyone',
     'Maintain highest standards of integrity and transparency',
     'Educate customers about authentic Rudraksha beads',
@@ -34,7 +34,7 @@ const mission = [
 ];
 
 const vision = [
-    "Become India's most trusted Rudra beads testing lab",
+    "Become India's most trusted Rudra beads & gems testing lab",
     'Set new standards in Rudraksha certification services',
     'Bridge traditional faith with modern scientific testing',
     'Expand reliable bead testing services with transparent reporting',
@@ -42,8 +42,8 @@ const vision = [
 
 const services = [
     {
-        title: 'Rudra Beads Testing',
-        desc: 'Detailed testing for Rudraksha beads, bead structure, surface features, and identity markers using careful laboratory procedures.',
+        title: 'Rudra Beads & Gems Testing',
+        desc: 'Detailed testing for Rudraksha beads, gemstones, bead structure, surface features, and identity markers using careful laboratory procedures.',
         img: '/images/rbtl/service-testing.png',
     },
     {
@@ -60,7 +60,7 @@ const services = [
 </script>
 
 <template>
-    <Head title="RBTL Rudra Beads Testing Lab" />
+    <Head title="RBTL Rudra Beads & Gems Testing Lab" />
 
     <div class="vgtl-page">
         <SiteHeader />

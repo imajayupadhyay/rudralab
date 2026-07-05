@@ -25,6 +25,8 @@ const certificates = {
             { k: 'Colour', v: 'BLACK' },
             { k: 'Refractive Index', v: 'N/A' },
             { k: 'Specific Gravity', v: 'N/A' },
+            { k: 'Origin', v: 'INDONESIA (JAVA)' },
+            { k: 'Issued to', v: 'RAVI SHARMA' },
             { k: 'Remarks', v: 'KARUNGALI BRACELET' },
         ],
     },

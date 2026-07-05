@@ -53,7 +53,7 @@ const closeMenu = () => {
                     >RBTL</span>
                     <span
                         style="font-size:9.5px;letter-spacing:0.28em;text-transform:uppercase;color:#6B6862;margin-top:3px;"
-                    >Rudra Beads Testing Lab</span>
+                    >Rudra Beads &amp; Gems Testing Lab</span>
                 </span>
             </a>
 

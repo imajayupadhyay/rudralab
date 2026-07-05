@@ -11,10 +11,10 @@
                     >R</span>
                     <span
                         style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;"
-                    >RBTL Rudra Beads Testing Lab</span>
+                    >RBTL Rudra Beads &amp; Gems Testing Lab</span>
                 </div>
                 <p style="font-size:14px;line-height:1.7;color:#6B6862;max-width:400px;margin:0;">
-                    A dedicated Rudra beads testing lab safeguarding authenticity, trust, and clear certification records.
+                    A dedicated Rudra beads &amp; gems testing lab safeguarding authenticity, trust, and clear certification records.
                 </p>
             </div>
 
@@ -40,7 +40,7 @@
                     Services
                 </div>
                 <div style="display:flex;flex-direction:column;gap:12px;">
-                    <span style="color:#6B6862;font-size:14px;">Rudra Beads Testing</span>
+                    <span style="color:#6B6862;font-size:14px;">Rudra Beads &amp; Gems Testing</span>
                     <span style="color:#6B6862;font-size:14px;">Mukhi Verification</span>
                     <span style="color:#6B6862;font-size:14px;">Certificate Registry</span>
                 </div>
@@ -52,7 +52,7 @@
                 style="max-width:1200px;margin:0 auto;padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"
             >
                 <span style="font-size:12.5px;color:#9A968D;">
-                    &copy; 2026 RBTL Rudra Beads Testing Lab. All rights reserved.
+                    &copy; 2026 RBTL Rudra Beads &amp; Gems Testing Lab. All rights reserved.
                 </span>
                 <span style="font-size:12.5px;color:#9A968D;">Authentic beads. Transparent testing.</span>
             </div>

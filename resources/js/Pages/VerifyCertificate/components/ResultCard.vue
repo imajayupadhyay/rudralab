@@ -1,6 +1,29 @@
 <script setup>
 import QRCode from 'qrcode';
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+
+// The certificate replica is drawn at a fixed design width so its layout and
+// proportions stay identical everywhere. On narrow screens we scale the whole
+// card down to fit the available width instead of reflowing or scrolling it.
+const CARD_DESIGN_WIDTH = 600;
+
+const fitEl = ref(null);
+const cardEl = ref(null);
+const scale = ref(1);
+const fitHeight = ref(null);
+let resizeObserver = null;
+
+const recomputeScale = () => {
+    if (!fitEl.value || !cardEl.value) {
+        return;
+    }
+
+    const available = fitEl.value.clientWidth;
+    const ratio = Math.min(1, available / CARD_DESIGN_WIDTH);
+
+    scale.value = ratio;
+    fitHeight.value = `${cardEl.value.offsetHeight * ratio}px`;
+};
 
 const props = defineProps({
     result: {
@@ -45,9 +68,32 @@ watch(
                 light: '#FFFFFF',
             },
         });
+
+        // Card height can shift once the QR renders — re-fit after it paints.
+        await nextTick();
+        recomputeScale();
     },
     { immediate: true },
 );
+
+onMounted(() => {
+    resizeObserver = new ResizeObserver(recomputeScale);
+
+    if (fitEl.value) {
+        resizeObserver.observe(fitEl.value);
+    }
+
+    if (cardEl.value) {
+        resizeObserver.observe(cardEl.value);
+    }
+
+    recomputeScale();
+});
+
+onBeforeUnmount(() => {
+    resizeObserver?.disconnect();
+    resizeObserver = null;
+});
 </script>
 
 <template>
@@ -69,7 +115,7 @@ watch(
         </div>
     </section>
 
-    <section v-else style="max-width:1200px;margin:0 auto;padding:0 32px 54px;">
+    <section v-else class="rbtl-cert-section" style="max-width:1200px;margin:0 auto;padding:0 32px 54px;">
         <div
             style="display:grid;grid-template-columns:0.95fr 1.05fr;gap:28px;align-items:start;"
             class="vgtl-certificate-layout"
@@ -128,12 +174,18 @@ watch(
                     </div>
 
                     <p style="font-size:13px;color:#6B6862;line-height:1.6;margin:26px 0 0;">
-                        This record is held in the RBTL Rudra Beads Testing Lab registry. Scan the QR code on the certificate
+                        This record is held in the RBTL Rudra Beads & Gems Testing Lab registry. Scan the QR code on the certificate
                         preview to open this exact verification record.
                     </p>
                 </div>
             </div>
 
+            <div ref="fitEl" class="rbtl-cert-fit" :style="{ height: fitHeight }">
+            <div
+                ref="cardEl"
+                class="rbtl-cert-scale"
+                :style="{ width: '600px', transform: `scale(${scale})`, transformOrigin: 'top left' }"
+            >
             <aside
                 class="rbtl-cert-card"
                 style="background:#FFFFFF;border:2px solid #1C1B19;border-radius:0;padding:20px 22px 18px;box-shadow:0 24px 60px rgba(35,74,62,0.08);"
@@ -152,7 +204,7 @@ watch(
                             <span
                                 class="rbtl-brand-sub"
                                 style="font-size:18px;font-weight:800;font-style:italic;letter-spacing:0.04em;line-height:1.1;color:#1C1B19;"
-                            >RUDRA BEADS TESTING LAB</span>
+                            >RUDRA BEADS &amp; GEMS TESTING LAB</span>
                         </div>
                         <div class="rbtl-brand-tag" style="font-size:15px;font-weight:800;text-align:center;margin-top:7px;line-height:1.25;">
                             Analysis - Research - Authentication
@@ -207,6 +259,14 @@ watch(
                             <span style="font-weight:800;">: {{ detailMap['Specific Gravity'] }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                            <strong>Origin</strong>
+                            <span style="font-weight:800;">: {{ detailMap.Origin }}</span>
+                        </div>
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                            <strong>Issued to</strong>
+                            <span style="font-weight:800;">: {{ detailMap['Issued to'] }}</span>
+                        </div>
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Remarks</strong>
                             <span style="font-weight:800;">: {{ detailMap.Remarks }}</span>
                         </div>
@@ -221,58 +281,28 @@ watch(
                     </div>
                 </div>
             </aside>
+            </div>
+            </div>
         </div>
     </section>
 </template>
 
 <style>
-/* Certificate replica — mobile legibility.
-   The replica's inner grids/type are pixel-tuned for desktop, so the
-   overrides below need !important to beat the element's inline styles. */
+/* Certificate replica — keep the exact card layout everywhere and scale the
+   whole card down to fit narrow screens (see recomputeScale in the script),
+   so it never reflows or scrolls, matching how the physical card looks. */
+
+/* min-width:0 lets this shrink inside the grid track; the box is sized to the
+   scaled card height by JS so no empty gap is left below it. */
+.rbtl-cert-fit {
+    min-width: 0;
+}
+
+/* Tighten the outer padding on phones so the card can use more width. */
 @media (max-width: 560px) {
-    .rbtl-cert-card {
-        padding: 16px 14px 16px !important;
-    }
-
-    /* Stack logo, title and QR instead of squeezing them into 3 columns */
-    .rbtl-cert-head {
-        grid-template-columns: 1fr !important;
-        justify-items: center !important;
-        text-align: center !important;
-        gap: 14px !important;
-    }
-
-    .rbtl-cert-title > div:first-child {
-        justify-content: center !important;
-    }
-
-    .rbtl-brand-lg {
-        font-size: 24px !important;
-    }
-
-    .rbtl-brand-sub {
-        font-size: 13px !important;
-    }
-
-    .rbtl-brand-tag {
-        font-size: 12px !important;
-    }
-
-    /* Details above, item image below — full width each */
-    .rbtl-cert-body {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-    }
-
-    /* Shorter label column + smaller type so values stay on one line */
-    .rbtl-cert-line {
-        grid-template-columns: 96px 1fr !important;
-        font-size: 13.5px !important;
-        gap: 6px !important;
-    }
-
-    .rbtl-cert-media img {
-        height: 200px !important;
+    .rbtl-cert-section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
     }
 }
 </style>
