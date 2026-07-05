@@ -42,15 +42,35 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    content: {
+        type: Object,
+        required: true,
+    },
 });
 
 const qrCode = ref('');
 
-const detailRows = computed(() => props.result.fields || []);
-
 const detailMap = computed(() => Object.fromEntries(
-    detailRows.value.map((field) => [field.k, field.v]),
+    (props.result.fields || []).map((field) => [field.k, field.v]),
 ));
+
+const fieldLabels = computed(() => props.content.result.field_labels || {});
+const preview = computed(() => props.content.certificate_preview || {});
+
+const fieldValue = (key, fallback = 'N/A') => detailMap.value[key] || fallback;
+
+const detailRows = computed(() => [
+    { label: fieldLabels.value.certificate, value: fieldValue('Certificate') },
+    { label: fieldLabels.value.weight, value: fieldValue('Weight') },
+    { label: fieldLabels.value.shape_cut, value: fieldValue('Shape/Cut') },
+    { label: fieldLabels.value.dimension, value: fieldValue('Dimension') },
+    { label: fieldLabels.value.colour, value: fieldValue('Colour') },
+    { label: fieldLabels.value.refractive_index, value: fieldValue('Refractive Index') },
+    { label: fieldLabels.value.specific_gravity, value: fieldValue('Specific Gravity') },
+    { label: fieldLabels.value.origin, value: fieldValue('Origin') },
+    { label: fieldLabels.value.issued_to, value: fieldValue('Issued to') },
+    { label: fieldLabels.value.remarks, value: fieldValue('Remarks') },
+]);
 
 watch(
     () => props.verificationUrl,
@@ -105,12 +125,12 @@ onBeforeUnmount(() => {
             <h3
                 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;margin:0 0 10px;"
             >
-                No record found
+                {{ content.result.not_found_title }}
             </h3>
             <p style="font-size:14.5px;color:#6B6862;line-height:1.6;margin:0 auto;max-width:400px;">
-                We couldn't find a certificate matching
-                <strong style="color:#1C1B19;">{{ searched }}</strong>. Double-check the number, or reach out to our team
-                for assistance.
+                {{ content.result.not_found_prefix }}
+                <strong style="color:#1C1B19;">{{ searched }}</strong>.
+                {{ content.result.not_found_suffix }}
             </p>
         </div>
     </section>
@@ -132,7 +152,7 @@ onBeforeUnmount(() => {
                             <div
                                 style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,234,226,0.65);"
                             >
-                                Verified &amp; Authentic
+                                {{ content.result.verified_label }}
                             </div>
                             <div
                                 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-top:2px;"
@@ -141,7 +161,7 @@ onBeforeUnmount(() => {
                             </div>
                         </div>
                     </div>
-                    <span style="font-size:12.5px;color:rgba(237,234,226,0.7);">Issued {{ result.issued }}</span>
+                    <span style="font-size:12.5px;color:rgba(237,234,226,0.7);">{{ content.result.issued_prefix }} {{ result.issued }}</span>
                 </div>
 
                 <div style="padding:32px;">
@@ -150,7 +170,7 @@ onBeforeUnmount(() => {
                     >
                         <img
                             :src="result.image"
-                            alt="Certified Rudra bead"
+                            :alt="content.result.image_alt"
                             style="width:100%;height:240px;object-fit:cover;display:block;"
                         />
                     </div>
@@ -158,24 +178,23 @@ onBeforeUnmount(() => {
                     <div style="display:flex;flex-direction:column;gap:14px;">
                         <div
                             v-for="field in detailRows"
-                            :key="field.k"
+                            :key="field.label"
                             style="display:grid;grid-template-columns:150px 1fr;gap:14px;border-bottom:1px solid rgba(28,27,25,0.08);padding-bottom:14px;"
                             class="vgtl-certificate-row"
                         >
                             <div
                                 style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#9A968D;font-weight:600;"
                             >
-                                {{ field.k }}
+                                {{ field.label }}
                             </div>
                             <div style="font-size:16px;color:#1C1B19;font-weight:700;">
-                                {{ field.v }}
+                                {{ field.value }}
                             </div>
                         </div>
                     </div>
 
                     <p style="font-size:13px;color:#6B6862;line-height:1.6;margin:26px 0 0;">
-                        This record is held in the RBTL Rudra Beads & Gems Testing Lab registry. Scan the QR code on the certificate
-                        preview to open this exact verification record.
+                        {{ content.result.registry_note }}
                     </p>
                 </div>
             </div>
@@ -196,7 +215,7 @@ onBeforeUnmount(() => {
                         style="width:92px;height:92px;border:4px solid #D9B64C;border-radius:50%;background:#173F58;display:grid;place-items:center;color:#F6F4EF;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;position:relative;overflow:hidden;"
                     >
                         <span style="position:absolute;inset:12px;border:1px solid rgba(246,244,239,0.4);border-radius:50%;"></span>
-                        R
+                        {{ preview.logo_text }}
                     </div>
 
                     <div class="rbtl-cert-title" style="min-width:0;">
@@ -204,16 +223,16 @@ onBeforeUnmount(() => {
                             <span
                                 class="rbtl-brand-sub"
                                 style="font-size:18px;font-weight:800;font-style:italic;letter-spacing:0.04em;line-height:1.1;color:#1C1B19;"
-                            >RUDRA BEADS &amp; GEMS TESTING LAB</span>
+                            >{{ preview.brand_title }}</span>
                         </div>
                         <div class="rbtl-brand-tag" style="font-size:15px;font-weight:800;text-align:center;margin-top:7px;line-height:1.25;">
-                            Analysis - Research - Authentication
+                            {{ preview.brand_tagline }}
                         </div>
                         <div style="height:1px;background:#B8B8B8;margin:8px 0 4px;"></div>
                         <div
                             style="font-size:12px;font-weight:800;text-align:center;letter-spacing:0.08em;text-transform:uppercase;"
                         >
-                            Identification Report
+                            {{ preview.report_title }}
                         </div>
                         <div style="height:1px;background:#B8B8B8;margin-top:7px;"></div>
                     </div>
@@ -222,7 +241,7 @@ onBeforeUnmount(() => {
                         <img
                             v-if="qrCode"
                             :src="qrCode"
-                            alt="Certificate verification QR code"
+                            :alt="preview.qr_alt"
                             style="width:104px;height:104px;display:block;"
                         />
                     </div>
@@ -231,53 +250,58 @@ onBeforeUnmount(() => {
                 <div class="rbtl-cert-body" style="display:grid;grid-template-columns:1fr 130px;gap:24px;margin-top:18px;align-items:end;">
                     <div style="display:flex;flex-direction:column;gap:5px;">
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Certificate</strong>
-                            <span style="font-weight:800;color:#D41414;">: {{ detailMap.Certificate }}</span>
+                            <strong>{{ fieldLabels.certificate }}</strong>
+                            <span style="font-weight:800;color:#D41414;">: {{ fieldValue('Certificate') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Weight</strong>
-                            <span style="font-weight:800;color:#D41414;">: {{ detailMap.Weight }}</span>
+                            <strong>{{ fieldLabels.weight }}</strong>
+                            <span style="font-weight:800;color:#D41414;">: {{ fieldValue('Weight') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Shape/Cut</strong>
-                            <span style="font-weight:800;">: {{ detailMap['Shape/Cut'] }}</span>
+                            <strong>{{ fieldLabels.shape_cut }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Shape/Cut') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Dimension</strong>
-                            <span style="font-weight:800;">: {{ detailMap.Dimension }}</span>
+                            <strong>{{ fieldLabels.dimension }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Dimension') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Colour</strong>
-                            <span style="font-weight:800;">: {{ detailMap.Colour }}</span>
+                            <strong>{{ fieldLabels.colour }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Colour') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Refractive<br />Index</strong>
-                            <span style="font-weight:800;">: {{ detailMap['Refractive Index'] }}</span>
+                            <strong>{{ fieldLabels.refractive_index }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Refractive Index') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Specific<br />Gravity</strong>
-                            <span style="font-weight:800;">: {{ detailMap['Specific Gravity'] }}</span>
+                            <strong>{{ fieldLabels.specific_gravity }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Specific Gravity') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Origin</strong>
-                            <span style="font-weight:800;">: {{ detailMap.Origin }}</span>
+                            <strong>{{ fieldLabels.origin }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Origin') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Issued to</strong>
-                            <span style="font-weight:800;">: {{ detailMap['Issued to'] }}</span>
+                            <strong>{{ fieldLabels.issued_to }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Issued to') }}</span>
                         </div>
                         <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
-                            <strong>Remarks</strong>
-                            <span style="font-weight:800;">: {{ detailMap.Remarks }}</span>
+                            <strong>{{ fieldLabels.remarks }}</strong>
+                            <span style="font-weight:800;">: {{ fieldValue('Remarks') }}</span>
                         </div>
                     </div>
 
-                    <div class="rbtl-cert-media" style="display:flex;flex-direction:column;align-items:center;gap:22px;">
+                    <div class="rbtl-cert-media" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
                         <img
                             :src="result.image"
-                            alt="Certified bead item"
+                            :alt="preview.item_alt"
                             style="width:100%;height:165px;object-fit:cover;object-position:center;border-radius:4px;"
                         />
+                        <div style="display:flex;flex-direction:column;align-items:center;line-height:1;">
+                            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:#173F58;transform:rotate(-6deg);">{{ preview.signature_name }}</span>
+                            <span style="width:100%;height:1px;background:rgba(28,27,25,0.35);margin-top:2px;"></span>
+                            <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#6B6862;margin-top:4px;">{{ preview.signature_label }}</span>
+                        </div>
                     </div>
                 </div>
             </aside>

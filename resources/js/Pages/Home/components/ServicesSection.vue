@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
-    services: {
-        type: Array,
+    content: {
+        type: Object,
         required: true,
     },
 });
@@ -12,17 +12,17 @@ defineProps({
         <div style="text-align:center;margin-bottom:56px;">
             <span
                 style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:#234A3E;font-weight:600;"
-            >Our Services</span>
+            >{{ content.eyebrow }}</span>
             <h2
                 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,4vw,52px);line-height:1.08;margin:18px 0 0;"
             >
-                Certified with scientific rigor.
+                {{ content.title }}
             </h2>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;" class="vgtl-cards">
             <div
-                v-for="service in services"
+                v-for="service in content.items"
                 :key="service.title"
                 style="border:1px solid rgba(28,27,25,0.1);border-radius:16px;overflow:hidden;background:#FFFFFF;display:flex;flex-direction:column;"
             >
@@ -43,9 +43,9 @@ defineProps({
                         {{ service.desc }}
                     </p>
                     <a
-                        href="/contact"
+                        :href="service.link_url"
                         style="text-decoration:none;color:#234A3E;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;"
-                    >Learn more <span style="font-family:serif;">→</span></a>
+                    >{{ service.link_text }} <span style="font-family:serif;">→</span></a>
                 </div>
             </div>
         </div>

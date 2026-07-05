@@ -1,3 +1,12 @@
+<script setup>
+defineProps({
+    content: {
+        type: Object,
+        required: true,
+    },
+});
+</script>
+
 <template>
     <section style="max-width:1200px;margin:0 auto 100px;padding:0 32px;">
         <div
@@ -13,22 +22,22 @@
                 <h2
                     style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4vw,50px);line-height:1.1;margin:0 0 18px;max-width:640px;margin-left:auto;margin-right:auto;"
                 >
-                    Authenticate your Rudra beads with confidence.
+                    {{ content.title }}
                 </h2>
                 <p
                     style="font-size:16px;line-height:1.7;color:rgba(237,234,226,0.75);max-width:520px;margin:0 auto 34px;"
                 >
-                    Get a clear RBTL certificate, or verify a report you already hold.
+                    {{ content.description }}
                 </p>
                 <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
                     <a
-                        href="/contact"
+                        :href="content.primary_button_url"
                         style="text-decoration:none;background:#F6F4EF;color:#234A3E;font-size:14px;font-weight:600;padding:15px 32px;border-radius:100px;"
-                    >Contact Now</a>
+                    >{{ content.primary_button_text }}</a>
                     <a
-                        href="/verify-certificate"
+                        :href="content.secondary_button_url"
                         style="text-decoration:none;border:1px solid rgba(237,234,226,0.4);color:#EDEAE2;font-size:14px;font-weight:600;padding:15px 32px;border-radius:100px;"
-                    >Verify Certificate</a>
+                    >{{ content.secondary_button_text }}</a>
                 </div>
             </div>
         </div>

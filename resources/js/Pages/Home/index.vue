@@ -10,53 +10,12 @@ import StatsStrip from './components/StatsStrip.vue';
 import VisionMissionSection from './components/VisionMissionSection.vue';
 import WelcomeSection from './components/WelcomeSection.vue';
 
-const stats = [
-    { value: 'RBTL', label: 'Dedicated Rudra beads & gems testing lab' },
-    { value: '5+', label: 'Quality and identity checks' },
-    { value: 'X-Ray', label: 'Mukhi structure analysis' },
-    { value: '100%', label: 'Integrity & transparency' },
-];
-
-const checklist = [
-    'Rudraksha Beads & Gems Testing',
-    'Mukhi Identification',
-    'X-Ray Structure Review',
-    'Natural Origin Assessment',
-    'Certification & Report Verification',
-];
-
-const mission = [
-    'Provide accurate and dependable Rudra beads & gems certification',
-    'Make Rudraksha testing accessible to everyone',
-    'Maintain highest standards of integrity and transparency',
-    'Educate customers about authentic Rudraksha beads',
-    'Preserve trust in natural Rudra beads and spiritual products',
-];
-
-const vision = [
-    "Become India's most trusted Rudra beads & gems testing lab",
-    'Set new standards in Rudraksha certification services',
-    'Bridge traditional faith with modern scientific testing',
-    'Expand reliable bead testing services with transparent reporting',
-];
-
-const services = [
-    {
-        title: 'Rudra Beads & Gems Testing',
-        desc: 'Detailed testing for Rudraksha beads, gemstones, bead structure, surface features, and identity markers using careful laboratory procedures.',
-        img: '/images/rbtl/service-testing.png',
+defineProps({
+    content: {
+        type: Object,
+        required: true,
     },
-    {
-        title: 'Mukhi Verification',
-        desc: 'Mukhi counting and verification supported by visual inspection, X-Ray review, and structured certificate records.',
-        img: '/images/rbtl/service-mukhi.png',
-    },
-    {
-        title: 'Certificate Registry',
-        desc: 'Each issued certificate can be checked through the RBTL registry so customers can confirm report details with confidence.',
-        img: '/images/rbtl/service-certificate.png',
-    },
-];
+});
 </script>
 
 <template>
@@ -66,13 +25,13 @@ const services = [
         <SiteHeader />
 
         <main id="top">
-            <HeroSection />
-            <StatsStrip :stats="stats" />
-            <WelcomeSection />
-            <AuthenticationBand :checklist="checklist" />
-            <VisionMissionSection :mission="mission" :vision="vision" />
-            <ServicesSection :services="services" />
-            <CtaSection />
+            <HeroSection :content="content.hero" />
+            <StatsStrip :stats="content.stats" />
+            <WelcomeSection :content="content.welcome" />
+            <AuthenticationBand :content="content.testing" />
+            <VisionMissionSection :content="content.vision_mission" />
+            <ServicesSection :content="content.services" />
+            <CtaSection :content="content.cta" />
         </main>
 
         <SiteFooter />

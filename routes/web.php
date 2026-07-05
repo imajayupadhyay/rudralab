@@ -1,16 +1,13 @@
 <?php
 
+use App\Http\Controllers\CertificateVerificationController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home/index');
-});
+Route::get('/', HomeController::class);
 
-Route::get('/verify-certificate', function () {
-    return Inertia::render('VerifyCertificate/index');
-})->name('certificate.verify');
+Route::get('/verify-certificate', CertificateVerificationController::class)->name('certificate.verify');
 
-Route::get('/contact', function () {
-    return Inertia::render('Contact/index');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

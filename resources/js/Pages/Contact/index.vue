@@ -1,45 +1,34 @@
 <script setup>
-import { reactive, ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import ContactGrid from './components/ContactGrid.vue';
 import HoursBanner from './components/HoursBanner.vue';
 import PageHero from './components/PageHero.vue';
 import SiteFooter from '@/global/SiteFooter.vue';
 import SiteHeader from '@/global/SiteHeader.vue';
 
-const sent = ref(false);
-const form = reactive({
+defineProps({
+    content: {
+        type: Object,
+        required: true,
+    },
+});
+
+const page = usePage();
+const sent = computed(() => Boolean(page.props.flash?.success));
+
+const form = useForm({
     name: '',
     phone: '',
     email: '',
     message: '',
 });
 
-const info = [
-    {
-        icon: '⚑',
-        label: 'Lab Location',
-        value: 'Shiv Shakti Traders, near main Shaheed Udham Chowk, Guhla Road, Cheeka, Haryana',
-    },
-    {
-        icon: '☎',
-        label: 'Call Us',
-        value: '+91 87085 40840\n+91 80598 72000',
-    },
-    {
-        icon: '✉',
-        label: 'Email Us',
-        value: 'info@rbtl.test',
-    },
-    {
-        icon: '◷',
-        label: 'Working Hours',
-        value: 'Mon – Sat  10:00am – 5:00pm\nSun  11:00am – 4:00pm',
-    },
-];
-
 const submit = () => {
-    sent.value = true;
+    form.post('/contact', {
+        preserveScroll: true,
+        onSuccess: () => form.reset(),
+    });
 };
 </script>
 
@@ -50,14 +39,18 @@ const submit = () => {
         <SiteHeader />
 
         <main style="flex:1;">
-            <PageHero />
+            <PageHero :content="content.hero" />
             <ContactGrid
                 :form="form"
-                :info="info"
+                :info="content.info"
+                :content="content.form"
+                :address-card="content.address_card"
                 :sent="sent"
+                :processing="form.processing"
+                :errors="form.errors"
                 @submit="submit"
             />
-            <HoursBanner />
+            <HoursBanner :content="content.hours" />
         </main>
 
         <SiteFooter />

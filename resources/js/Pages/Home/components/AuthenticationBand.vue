@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
-    checklist: {
-        type: Array,
+    content: {
+        type: Object,
         required: true,
     },
 });
@@ -16,10 +16,10 @@ defineProps({
                 <h2
                     style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,46px);margin:0;"
                 >
-                    What we test
+                    {{ content.title }}
                 </h2>
                 <span style="font-size:13px;color:rgba(237,234,226,0.6);letter-spacing:0.04em;">
-                    Rudra beads &amp; gems testing and certification
+                    {{ content.subtitle }}
                 </span>
             </div>
 
@@ -28,7 +28,7 @@ defineProps({
                 class="vgtl-checks"
             >
                 <div
-                    v-for="item in checklist"
+                    v-for="item in content.items"
                     :key="item"
                     style="background:#234A3E;padding:30px 22px;"
                 >

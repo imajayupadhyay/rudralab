@@ -1,6 +1,6 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
+import { Head, router } from '@inertiajs/vue3';
 import CertificateForm from './components/CertificateForm.vue';
 import HelpStrip from './components/HelpStrip.vue';
 import PageHero from './components/PageHero.vue';
@@ -8,95 +8,88 @@ import ResultCard from './components/ResultCard.vue';
 import SiteFooter from '@/global/SiteFooter.vue';
 import SiteHeader from '@/global/SiteHeader.vue';
 
-const query = ref('');
-const status = ref('idle');
-const searched = ref('');
-
-const certificates = {
-    'VGTL/GEM/211554': {
-        number: 'VGTL/GEM/211554',
-        issued: '18 Feb 2026',
-        image: '/images/rbtl/service-mukhi.png',
-        fields: [
-            { k: 'Certificate', v: 'VGTL/GEM/211554' },
-            { k: 'Weight', v: '25-30 GMS' },
-            { k: 'Shape/Cut', v: 'ROUND BEAD' },
-            { k: 'Dimension', v: '8MM mm' },
-            { k: 'Colour', v: 'BLACK' },
-            { k: 'Refractive Index', v: 'N/A' },
-            { k: 'Specific Gravity', v: 'N/A' },
-            { k: 'Origin', v: 'INDONESIA (JAVA)' },
-            { k: 'Issued to', v: 'RAVI SHARMA' },
-            { k: 'Remarks', v: 'KARUNGALI BRACELET' },
-        ],
+const props = defineProps({
+    content: {
+        type: Object,
+        required: true,
     },
-};
+    initialSearch: {
+        type: String,
+        default: '',
+    },
+    certificate: {
+        type: Object,
+        default: null,
+    },
+    certificateSearched: {
+        type: String,
+        default: '',
+    },
+});
 
-const helps = [
-    { n: '01', t: 'Find the number printed on your RBTL certificate' },
-    { n: '02', t: 'Enter it above exactly as shown' },
-    { n: '03', t: 'Confirm the details match your Rudra bead' },
-];
+const query = ref(props.initialSearch || '');
+const emptySubmitted = ref(false);
 
 const normalize = (value) => (value || '').trim().toUpperCase();
 
+const searched = computed(() => props.certificateSearched || '');
+
+const status = computed(() => {
+    if (emptySubmitted.value) {
+        return 'empty';
+    }
+
+    if (props.certificate) {
+        return 'found';
+    }
+
+    if (searched.value) {
+        return 'notfound';
+    }
+
+    return 'idle';
+});
+
 const verificationUrl = computed(() => {
-    if (!result.value.number || typeof window === 'undefined') {
+    if (!props.certificate?.number || typeof window === 'undefined') {
         return '';
     }
 
     const url = new URL('/verify-certificate', window.location.origin);
-    url.searchParams.set('certificate', result.value.number);
+    url.searchParams.set('certificate', props.certificate.number);
 
     return url.toString();
 });
-
-const syncUrl = (certificateNumber) => {
-    if (typeof window === 'undefined') {
-        return;
-    }
-
-    const url = new URL(window.location.href);
-    url.searchParams.set('certificate', certificateNumber);
-    window.history.replaceState({}, '', url.toString());
-};
 
 const verify = () => {
     const normalized = normalize(query.value);
 
     if (!normalized) {
-        status.value = 'empty';
-        searched.value = '';
+        emptySubmitted.value = true;
         return;
     }
 
-    searched.value = normalized;
-    status.value = certificates[normalized] ? 'found' : 'notfound';
+    emptySubmitted.value = false;
 
-    if (certificates[normalized]) {
-        syncUrl(certificates[normalized].number);
-    }
+    router.get('/verify-certificate', { certificate: normalized }, {
+        preserveScroll: true,
+    });
 };
 
 const fillSample = () => {
-    query.value = 'VGTL/GEM/211554';
+    query.value = props.content.form.demo_certificate;
     verify();
 };
 
-const result = computed(() => certificates[normalize(searched.value)] || {
+const result = computed(() => props.certificate || {
     number: '',
     issued: '',
     image: '',
     fields: [],
 });
 
-onMounted(() => {
-    const certificateNumber = new URLSearchParams(window.location.search).get('certificate');
-
-    if (certificateNumber) {
-        query.value = certificateNumber;
-        verify();
-    }
+watch(() => props.initialSearch, (value) => {
+    query.value = value || '';
 });
 </script>
 
@@ -107,9 +100,10 @@ onMounted(() => {
         <SiteHeader />
 
         <main style="flex:1;">
-            <PageHero />
+            <PageHero :content="content.hero" />
             <CertificateForm
                 v-model="query"
+                :content="content.form"
                 :show-hint="status === 'empty'"
                 :show-try="status === 'idle' || status === 'empty' || status === 'notfound'"
                 @fill-sample="fillSample"
@@ -117,15 +111,17 @@ onMounted(() => {
             />
             <ResultCard
                 v-if="status === 'found'"
+                :content="content"
                 :result="result"
                 :verification-url="verificationUrl"
             />
             <ResultCard
                 v-if="status === 'notfound'"
+                :content="content"
                 :searched="searched"
                 not-found
             />
-            <HelpStrip :helps="helps" />
+            <HelpStrip :helps="content.help" />
         </main>
 
         <SiteFooter />
