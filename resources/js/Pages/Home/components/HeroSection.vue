@@ -16,12 +16,13 @@
             <h1
                 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-0.01em;margin:0 0 26px;"
             >
-                Rudra beads,<br /><em style="font-style:italic;color:#234A3E;">verified.</em>
+                RBTL is certified<br /><em style="font-style:italic;color:#234A3E;">ISO 9001 &amp; IAF</em>
             </h1>
 
             <p style="font-size:16.5px;line-height:1.7;color:#4A4842;max-width:520px;margin:0 0 36px;">
-                RBTL is a dedicated Rudra beads &amp; gems testing lab focused on reliable Rudraksha identification, Mukhi
-                verification, X-Ray structure review, and transparent certification backed by trained experts.
+                RBTL is a dedicated Rudra beads &amp; gems testing lab, EGAC-accredited and ISO 9001:2015
+                certified, delivering reliable Rudraksha identification, Mukhi verification, X-Ray structure
+                review, and transparent certification backed by trained experts.
             </p>
 
             <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
@@ -36,15 +37,36 @@
             </div>
         </div>
 
-        <div style="position:relative;">
-            <div
-                style="aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%, #2f5d4e, #1a352c);position:absolute;inset:8% 12%;filter:blur(2px);opacity:0.14;"
-            ></div>
-            <img
-                src="/images/rbtl/hero-rudra.png"
-                alt="Rudra bead testing"
-                style="position:relative;width:100%;display:block;filter:drop-shadow(0 30px 50px rgba(35,74,62,0.22));"
-            />
+        <!-- Accreditations are the hero visual: shown large as the trust proof -->
+        <div style="display:flex;flex-direction:column;gap:18px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <span
+                    style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#234A3E;"
+                >Accredited &amp; Certified</span>
+                <span style="flex:1;height:1px;background:rgba(28,27,25,0.12);"></span>
+            </div>
+
+            <div style="display:flex;gap:18px;align-items:stretch;flex-wrap:wrap;">
+                <div
+                    style="flex:1;min-width:190px;display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:1px solid rgba(28,27,25,0.08);border-radius:22px;padding:22px;box-shadow:0 26px 60px rgba(35,74,62,0.12);"
+                >
+                    <img
+                        src="/images/rbtl/EGAC.jpeg"
+                        alt="EGAC Accredited Certification, International Accreditation Forum"
+                        style="width:100%;height:auto;display:block;border-radius:10px;"
+                    />
+                </div>
+
+                <div
+                    style="flex:1;min-width:190px;display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:1px solid rgba(28,27,25,0.08);border-radius:22px;padding:22px;box-shadow:0 26px 60px rgba(35,74,62,0.12);"
+                >
+                    <img
+                        src="/images/rbtl/iso-certified.jpeg"
+                        alt="ISO 9001:2015 Certified Company"
+                        style="width:100%;height:auto;display:block;border-radius:10px;"
+                    />
+                </div>
+            </div>
         </div>
     </section>
 </template>

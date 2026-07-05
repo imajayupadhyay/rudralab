@@ -72,7 +72,7 @@ const emit = defineEmits(['submit']);
                     style="display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#234A3E;color:#F6F4EF;font-size:14px;flex-shrink:0;"
                 >✓</span>
                 <span style="font-size:14px;color:#234A3E;line-height:1.5;">
-                    Thank you — your message has been noted. We'll reach out soon.
+                    Thank you, your message has been noted. We'll reach out soon.
                 </span>
             </div>
 

@@ -55,7 +55,7 @@ const emit = defineEmits(['update:modelValue', 'verify', 'fillSample']);
                 v-if="showTry"
                 style="font-size:12.5px;color:#9A968D;margin:16px 0 0;"
             >
-                Demo record available — try
+                Demo record available. Try
                 <button
                     style="background:none;border:none;padding:0;color:#234A3E;font-weight:600;font-family:inherit;font-size:12.5px;cursor:pointer;text-decoration:underline;"
                     type="button"

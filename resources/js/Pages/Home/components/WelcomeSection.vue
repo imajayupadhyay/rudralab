@@ -24,7 +24,7 @@
                 transparent reporting help customers make informed decisions.
             </p>
             <p style="font-size:16px;line-height:1.75;color:#4A4842;margin:0;">
-                At <strong style="font-weight:600;color:#1C1B19;">RBTL</strong>, we go beyond basic visual checks — we
+                At <strong style="font-weight:600;color:#1C1B19;">RBTL</strong>, we go beyond basic visual checks. We
                 document bead identity, verify Mukhi features, and provide certificates that customers can validate
                 through our internal registry.
             </p>
