@@ -135,26 +135,26 @@ watch(
             </div>
 
             <aside
+                class="rbtl-cert-card"
                 style="background:#FFFFFF;border:2px solid #1C1B19;border-radius:0;padding:20px 22px 18px;box-shadow:0 24px 60px rgba(35,74,62,0.08);"
             >
-                <div style="display:grid;grid-template-columns:92px 1fr 104px;gap:16px;align-items:start;">
+                <div class="rbtl-cert-head" style="display:grid;grid-template-columns:92px 1fr 104px;gap:16px;align-items:start;">
                     <div
-                        style="height:92px;border:4px solid #D9B64C;border-radius:50%;background:#173F58;display:grid;place-items:center;color:#F6F4EF;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;position:relative;overflow:hidden;"
+                        class="rbtl-cert-logo"
+                        style="width:92px;height:92px;border:4px solid #D9B64C;border-radius:50%;background:#173F58;display:grid;place-items:center;color:#F6F4EF;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;position:relative;overflow:hidden;"
                     >
                         <span style="position:absolute;inset:12px;border:1px solid rgba(246,244,239,0.4);border-radius:50%;"></span>
                         R
                     </div>
 
-                    <div style="min-width:0;">
-                        <div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;">
+                    <div class="rbtl-cert-title" style="min-width:0;">
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;flex-wrap:wrap;">
                             <span
-                                style="font-family:'Manrope',sans-serif;font-weight:800;font-size:31px;line-height:1;color:#0B2746;border-bottom:4px solid #0B2746;"
-                            >RBTL</span>
-                            <span
+                                class="rbtl-brand-sub"
                                 style="font-size:18px;font-weight:800;font-style:italic;letter-spacing:0.04em;line-height:1.1;color:#1C1B19;"
                             >RUDRA BEADS TESTING LAB</span>
                         </div>
-                        <div style="font-size:15px;font-weight:800;text-align:center;margin-top:7px;line-height:1.25;">
+                        <div class="rbtl-brand-tag" style="font-size:15px;font-weight:800;text-align:center;margin-top:7px;line-height:1.25;">
                             Analysis - Research - Authentication
                         </div>
                         <div style="height:1px;background:#B8B8B8;margin:8px 0 4px;"></div>
@@ -176,54 +176,103 @@ watch(
                     </div>
                 </div>
 
-                <div style="display:grid;grid-template-columns:1fr 130px;gap:24px;margin-top:18px;align-items:end;">
+                <div class="rbtl-cert-body" style="display:grid;grid-template-columns:1fr 130px;gap:24px;margin-top:18px;align-items:end;">
                     <div style="display:flex;flex-direction:column;gap:5px;">
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Certificate</strong>
                             <span style="font-weight:800;color:#D41414;">: {{ detailMap.Certificate }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Weight</strong>
                             <span style="font-weight:800;color:#D41414;">: {{ detailMap.Weight }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Shape/Cut</strong>
                             <span style="font-weight:800;">: {{ detailMap['Shape/Cut'] }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Dimension</strong>
                             <span style="font-weight:800;">: {{ detailMap.Dimension }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Colour</strong>
                             <span style="font-weight:800;">: {{ detailMap.Colour }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Refractive<br />Index</strong>
                             <span style="font-weight:800;">: {{ detailMap['Refractive Index'] }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Specific<br />Gravity</strong>
                             <span style="font-weight:800;">: {{ detailMap['Specific Gravity'] }}</span>
                         </div>
-                        <div style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
                             <strong>Remarks</strong>
                             <span style="font-weight:800;">: {{ detailMap.Remarks }}</span>
                         </div>
                     </div>
 
-                    <div style="display:flex;flex-direction:column;align-items:center;gap:22px;">
+                    <div class="rbtl-cert-media" style="display:flex;flex-direction:column;align-items:center;gap:22px;">
                         <img
                             :src="result.image"
                             alt="Certified bead item"
                             style="width:100%;height:165px;object-fit:cover;object-position:center;border-radius:4px;"
                         />
-                        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:#2C2A68;transform:rotate(-8deg);">
-                            RBTL
-                        </div>
                     </div>
                 </div>
             </aside>
         </div>
     </section>
 </template>
+
+<style>
+/* Certificate replica — mobile legibility.
+   The replica's inner grids/type are pixel-tuned for desktop, so the
+   overrides below need !important to beat the element's inline styles. */
+@media (max-width: 560px) {
+    .rbtl-cert-card {
+        padding: 16px 14px 16px !important;
+    }
+
+    /* Stack logo, title and QR instead of squeezing them into 3 columns */
+    .rbtl-cert-head {
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        text-align: center !important;
+        gap: 14px !important;
+    }
+
+    .rbtl-cert-title > div:first-child {
+        justify-content: center !important;
+    }
+
+    .rbtl-brand-lg {
+        font-size: 24px !important;
+    }
+
+    .rbtl-brand-sub {
+        font-size: 13px !important;
+    }
+
+    .rbtl-brand-tag {
+        font-size: 12px !important;
+    }
+
+    /* Details above, item image below — full width each */
+    .rbtl-cert-body {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* Shorter label column + smaller type so values stay on one line */
+    .rbtl-cert-line {
+        grid-template-columns: 96px 1fr !important;
+        font-size: 13.5px !important;
+        gap: 6px !important;
+    }
+
+    .rbtl-cert-media img {
+        height: 200px !important;
+    }
+}
+</style>
