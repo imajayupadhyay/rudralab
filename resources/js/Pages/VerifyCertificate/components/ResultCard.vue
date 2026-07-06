@@ -304,6 +304,14 @@ onBeforeUnmount(() => {
                         </div>
                     </div>
                 </div>
+
+                <div
+                    v-if="preview.website"
+                    class="rbtl-cert-website"
+                    style="text-align:center;margin-top:14px;font-size:11px;font-weight:800;letter-spacing:0.1em;color:#173F58;"
+                >
+                    {{ preview.website }}
+                </div>
             </aside>
             </div>
             </div>

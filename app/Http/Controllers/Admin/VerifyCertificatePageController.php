@@ -62,6 +62,7 @@ class VerifyCertificatePageController extends Controller
             'content.certificate_preview.item_alt' => ['nullable', 'string', 'max:160'],
             'content.certificate_preview.signature_name' => ['nullable', 'string', 'max:80'],
             'content.certificate_preview.signature_label' => ['nullable', 'string', 'max:120'],
+            'content.certificate_preview.website' => ['nullable', 'string', 'max:120'],
             'content.help' => ['required', 'array', 'max:6'],
             'content.help.*.n' => ['nullable', 'string', 'max:12'],
             'content.help.*.t' => ['nullable', 'string', 'max:240'],

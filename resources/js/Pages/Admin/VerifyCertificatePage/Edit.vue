@@ -235,6 +235,10 @@ const removeHelp = (index) => form.content.help.splice(index, 1);
                         <span>Signature Label</span>
                         <input v-model="form.content.certificate_preview.signature_label" type="text" />
                     </label>
+                    <label>
+                        <span>Website (certificate footer)</span>
+                        <input v-model="form.content.certificate_preview.website" type="text" />
+                    </label>
                 </div>
             </section>
 

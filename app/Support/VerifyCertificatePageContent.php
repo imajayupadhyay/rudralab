@@ -134,6 +134,7 @@ class VerifyCertificatePageContent
                 'item_alt' => 'Certified bead item',
                 'signature_name' => 'RBTL',
                 'signature_label' => 'Authorised Signatory',
+                'website' => 'rbtl.online',
             ],
             'help' => [
                 ['n' => '01', 't' => 'Find the number printed on your RBTL certificate'],
