@@ -30,6 +30,12 @@ const resetSearch = () => {
     router.get('/rbtl/certificates', {}, { replace: true });
 };
 
+const cardTypeLabel = (type) => ({
+    type_1: 'Type 1',
+    type_2: 'Type 2',
+    both: 'Both',
+}[type] || 'Type 1');
+
 const destroyCertificate = (certificate) => {
     if (!window.confirm(`Delete certificate ${certificate.certificate_number}?`)) {
         return;
@@ -63,6 +69,7 @@ const destroyCertificate = (certificate) => {
                     <thead>
                         <tr>
                             <th>Certificate</th>
+                            <th>Card Design</th>
                             <th>Customer</th>
                             <th>Issued</th>
                             <th>Origin</th>
@@ -75,6 +82,7 @@ const destroyCertificate = (certificate) => {
                             <td>
                                 <strong>{{ certificate.certificate_number }}</strong>
                             </td>
+                            <td><span class="rbtl-card-type-badge">{{ cardTypeLabel(certificate.card_type) }}</span></td>
                             <td>{{ certificate.customer_name || '-' }}</td>
                             <td>{{ certificate.issued_at || '-' }}</td>
                             <td>{{ certificate.origin || '-' }}</td>
@@ -90,7 +98,7 @@ const destroyCertificate = (certificate) => {
                             </td>
                         </tr>
                         <tr v-if="!certificates.data.length">
-                            <td colspan="6" class="rbtl-empty-cell">No certificate records found.</td>
+                            <td colspan="7" class="rbtl-empty-cell">No certificate records found.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -216,6 +224,17 @@ const destroyCertificate = (certificate) => {
     color: #234a3e;
     font-size: 12px;
     font-weight: 800;
+}
+
+.rbtl-card-type-badge {
+    background: rgba(35, 74, 62, 0.09);
+    border-radius: 999px;
+    color: #234a3e;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 9px;
+    white-space: nowrap;
 }
 
 .rbtl-status.inactive {

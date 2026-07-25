@@ -11,6 +11,12 @@ class Certificate extends Model
 {
     use SoftDeletes;
 
+    public const CARD_TYPE_ONE = 'type_1';
+
+    public const CARD_TYPE_TWO = 'type_2';
+
+    public const CARD_TYPE_BOTH = 'both';
+
     protected $fillable = [
         'certificate_number',
         'normalized_certificate_number',
@@ -26,6 +32,17 @@ class Certificate extends Model
         'remarks',
         'image_path',
         'extra_fields',
+        'card_type',
+        'reference_code',
+        'issue_location',
+        'particulars',
+        'natural_faces',
+        'artificial_faces',
+        'test_carried_out',
+        'xray_results',
+        'conclusions',
+        'genus_type',
+        'certificate_title',
         'is_active',
     ];
 
@@ -61,6 +78,7 @@ class Certificate extends Model
     {
         return [
             'id' => null,
+            'card_type' => self::CARD_TYPE_ONE,
             'certificate_number' => '',
             'issued_at' => '',
             'customer_name' => '',
@@ -72,6 +90,16 @@ class Certificate extends Model
             'specific_gravity' => 'N/A',
             'origin' => '',
             'remarks' => '',
+            'reference_code' => 'RBTL/14',
+            'issue_location' => 'NEW DELHI',
+            'particulars' => 'One loose bead',
+            'natural_faces' => '',
+            'artificial_faces' => 'None',
+            'test_carried_out' => 'X-Rays, Magnification',
+            'xray_results' => '',
+            'conclusions' => 'Results confirm natural origin',
+            'genus_type' => 'ELAEOCARPUS / E. GANITRUS',
+            'certificate_title' => 'NATURAL 13-MUKHI RUDRAKSHA',
             'image_path' => '/images/rbtl/service-mukhi.png',
             'image_url' => '/images/rbtl/service-mukhi.png',
             'is_active' => true,
@@ -113,6 +141,7 @@ class Certificate extends Model
     {
         return [
             'id' => $this->id,
+            'card_type' => $this->card_type ?: self::CARD_TYPE_ONE,
             'certificate_number' => $this->certificate_number,
             'issued_at' => $this->issued_at?->format('Y-m-d') ?? '',
             'customer_name' => $this->customer_name ?? '',
@@ -124,6 +153,16 @@ class Certificate extends Model
             'specific_gravity' => $this->specific_gravity ?? '',
             'origin' => $this->origin ?? '',
             'remarks' => $this->remarks ?? '',
+            'reference_code' => $this->reference_code ?? '',
+            'issue_location' => $this->issue_location ?? '',
+            'particulars' => $this->particulars ?? '',
+            'natural_faces' => $this->natural_faces ?? '',
+            'artificial_faces' => $this->artificial_faces ?? '',
+            'test_carried_out' => $this->test_carried_out ?? '',
+            'xray_results' => $this->xray_results ?? '',
+            'conclusions' => $this->conclusions ?? '',
+            'genus_type' => $this->genus_type ?? '',
+            'certificate_title' => $this->certificate_title ?? '',
             'image_path' => $this->image_path ?? '',
             'image_url' => $this->imageUrl(),
             'is_active' => $this->is_active,
@@ -132,23 +171,79 @@ class Certificate extends Model
 
     public function verificationPayload(): array
     {
+        $fields = [
+            ['k' => 'Certificate', 'v' => $this->certificate_number],
+            ['k' => 'Weight', 'v' => $this->weight ?: 'N/A'],
+            ['k' => 'Shape/Cut', 'v' => $this->shape_cut ?: 'N/A'],
+            ['k' => 'Dimension', 'v' => $this->dimension ?: 'N/A'],
+            ['k' => 'Colour', 'v' => $this->colour ?: 'N/A'],
+        ];
+
+        if ($this->showsTypeOne()) {
+            array_push($fields,
+                ['k' => 'Refractive Index', 'v' => $this->refractive_index ?: 'N/A'],
+                ['k' => 'Specific Gravity', 'v' => $this->specific_gravity ?: 'N/A'],
+            );
+        }
+
+        $fields[] = ['k' => 'Origin', 'v' => $this->origin ?: 'N/A'];
+
+        if ($this->showsTypeOne()) {
+            array_push($fields,
+                ['k' => 'Issued to', 'v' => $this->customer_name ?: 'N/A'],
+                ['k' => 'Remarks', 'v' => $this->remarks ?: 'N/A'],
+            );
+        }
+
+        if ($this->showsTypeTwo()) {
+            array_push($fields,
+                ['k' => 'Particulars', 'v' => $this->particulars ?: 'N/A'],
+                ['k' => 'Natural Faces', 'v' => $this->natural_faces ?: 'N/A'],
+                ['k' => 'Artificial Faces', 'v' => $this->artificial_faces ?: 'N/A'],
+                ['k' => 'Test Carried Out', 'v' => $this->test_carried_out ?: 'N/A'],
+                ['k' => 'X-Ray Results', 'v' => $this->xray_results ?: 'N/A'],
+                ['k' => 'Conclusions', 'v' => $this->conclusions ?: 'N/A'],
+                ['k' => 'Genus / Type', 'v' => $this->genus_type ?: 'N/A'],
+            );
+        }
+
         return [
             'number' => $this->certificate_number,
             'issued' => $this->issued_at?->format('d M Y') ?? 'N/A',
             'image' => $this->imageUrl(),
-            'fields' => [
-                ['k' => 'Certificate', 'v' => $this->certificate_number],
-                ['k' => 'Weight', 'v' => $this->weight ?: 'N/A'],
-                ['k' => 'Shape/Cut', 'v' => $this->shape_cut ?: 'N/A'],
-                ['k' => 'Dimension', 'v' => $this->dimension ?: 'N/A'],
-                ['k' => 'Colour', 'v' => $this->colour ?: 'N/A'],
-                ['k' => 'Refractive Index', 'v' => $this->refractive_index ?: 'N/A'],
-                ['k' => 'Specific Gravity', 'v' => $this->specific_gravity ?: 'N/A'],
-                ['k' => 'Origin', 'v' => $this->origin ?: 'N/A'],
-                ['k' => 'Issued to', 'v' => $this->customer_name ?: 'N/A'],
-                ['k' => 'Remarks', 'v' => $this->remarks ?: 'N/A'],
+            'card_type' => $this->card_type ?: self::CARD_TYPE_ONE,
+            'fields' => $fields,
+            'type_two' => [
+                'reference_code' => $this->reference_code ?: 'RBTL/14',
+                'issue_location' => $this->issue_location ?: 'NEW DELHI',
+                'particulars' => $this->particulars ?: 'N/A',
+                'natural_faces' => $this->natural_faces ?: 'N/A',
+                'artificial_faces' => $this->artificial_faces ?: 'N/A',
+                'test_carried_out' => $this->test_carried_out ?: 'N/A',
+                'xray_results' => $this->xray_results ?: 'N/A',
+                'conclusions' => $this->conclusions ?: 'N/A',
+                'genus_type' => $this->genus_type ?: 'N/A',
+                'certificate_title' => $this->certificate_title ?: 'NATURAL RUDRAKSHA',
             ],
         ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function cardTypes(): array
+    {
+        return [self::CARD_TYPE_ONE, self::CARD_TYPE_TWO, self::CARD_TYPE_BOTH];
+    }
+
+    public function showsTypeOne(): bool
+    {
+        return in_array($this->card_type ?: self::CARD_TYPE_ONE, [self::CARD_TYPE_ONE, self::CARD_TYPE_BOTH], true);
+    }
+
+    public function showsTypeTwo(): bool
+    {
+        return in_array($this->card_type ?: self::CARD_TYPE_ONE, [self::CARD_TYPE_TWO, self::CARD_TYPE_BOTH], true);
     }
 
     public function imageUrl(): string

@@ -123,6 +123,13 @@ class VerifyCertificatePageContent
                     'origin' => 'Origin',
                     'issued_to' => 'Issued to',
                     'remarks' => 'Remarks',
+                    'particulars' => 'Particulars',
+                    'natural_faces' => 'Natural Faces',
+                    'artificial_faces' => 'Artificial Faces',
+                    'test_carried_out' => 'Test Carried Out',
+                    'xray_results' => 'X-Ray Results',
+                    'conclusions' => 'Conclusions',
+                    'genus_type' => 'Genus / Type',
                 ],
             ],
             'certificate_preview' => [

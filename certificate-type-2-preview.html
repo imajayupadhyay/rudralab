@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RBTL Certificate Type 2 Preview</title>
+    <style>
+        :root {
+            --blue: #245a86;
+            --bright-blue: #2d5db7;
+            --red: #c83f50;
+            --purple: #79428f;
+            --gold: #e3a21c;
+            --ink: #263449;
+            --paper: #f4f8fb;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { min-height: 100%; }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at 50% 15%, rgba(255,255,255,.95), rgba(232,237,241,.7) 45%, rgba(207,215,221,.92)),
+                #dfe5e9;
+            color: var(--ink);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 36px 24px 54px;
+        }
+
+        .preview-heading {
+            margin: 0 auto 22px;
+            max-width: 950px;
+        }
+
+        .preview-heading span {
+            color: #57707f;
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .18em;
+            margin-bottom: 7px;
+            text-transform: uppercase;
+        }
+
+        .preview-heading h1 {
+            color: #183c56;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: clamp(25px, 4vw, 40px);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .preview-heading p {
+            color: #647785;
+            font-size: 13px;
+            line-height: 1.55;
+            margin: 8px 0 0;
+        }
+
+        .stage {
+            margin: 0 auto;
+            max-width: 950px;
+            min-width: 0;
+        }
+
+        .card-scale {
+            height: 620px;
+            position: relative;
+            transform-origin: top left;
+            width: 950px;
+        }
+
+        .certificate {
+            background:
+                linear-gradient(100deg, rgba(255,255,255,.92), rgba(236,246,251,.95)),
+                var(--paper);
+            border: 3px solid var(--bright-blue);
+            border-radius: 34px;
+            box-shadow: 0 22px 48px rgba(25,49,65,.22), inset 0 0 0 7px rgba(255,255,255,.72);
+            height: 620px;
+            overflow: hidden;
+            padding: 24px 31px 20px;
+            position: relative;
+            width: 950px;
+        }
+
+        .certificate::after {
+            border: 1.5px solid rgba(45,93,183,.65);
+            border-radius: 27px;
+            content: '';
+            inset: 10px;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .header {
+            align-items: flex-start;
+            display: grid;
+            grid-template-columns: 270px 1fr 430px;
+            height: 142px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .logo-lockup {
+            height: 112px;
+            position: relative;
+            width: 260px;
+        }
+
+        .logo-symbol {
+            height: 82px;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 4px;
+            width: 92px;
+        }
+
+        .logo-art {
+            height: 140px;
+            left: -24px;
+            object-fit: contain;
+            position: absolute;
+            top: -18px;
+            width: 140px;
+        }
+
+        .logo-word {
+            color: #2b6382;
+            font-family: 'Arial Black', Arial, Helvetica, sans-serif;
+            font-size: 54px;
+            font-weight: 900;
+            left: 92px;
+            letter-spacing: .055em;
+            line-height: 1;
+            position: absolute;
+            top: 22px;
+        }
+
+        .brand-rule {
+            align-self: stretch;
+            border-left: 6px solid var(--gold);
+            border-right: 5px solid var(--bright-blue);
+            height: 112px;
+            margin-left: 8px;
+            opacity: .85;
+            width: 23px;
+        }
+
+        .verification-qr {
+            background: #fff;
+            height: 108px;
+            left: 315px;
+            object-fit: contain;
+            padding: 3px;
+            position: absolute;
+            top: 1px;
+            width: 108px;
+        }
+
+        .lab-brand {
+            padding: 3px 17px 0 0;
+            text-align: center;
+        }
+
+        .rudraksha-mark {
+            color: var(--red);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 50px;
+            font-style: italic;
+            font-weight: 700;
+            letter-spacing: -.045em;
+            line-height: .92;
+            text-shadow: 0 2px 2px rgba(93,27,35,.14);
+        }
+
+        .rudraksha-mark::before {
+            background: radial-gradient(circle at 34% 30%, #b66f40 0 6%, #6d2f1c 34%, #3f1d14 68%, #8f4f2f 100%);
+            border: 2px solid rgba(102,47,30,.42);
+            border-radius: 48% 52% 46% 54%;
+            box-shadow: inset 5px 2px 0 rgba(255,255,255,.12), 0 2px 4px rgba(52,25,17,.22);
+            content: '';
+            display: block;
+            height: 39px;
+            margin: 0 auto 2px;
+            transform: rotate(-4deg);
+            width: 76px;
+        }
+
+        .lab-brand strong {
+            color: #252d3c;
+            display: block;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 21px;
+            letter-spacing: .01em;
+            margin-top: 10px;
+        }
+
+        .report-meta {
+            font-family: Georgia, 'Times New Roman', serif;
+            left: 38px;
+            line-height: 1.35;
+            position: absolute;
+            top: 151px;
+            z-index: 4;
+        }
+
+        .report-number {
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .report-number b { color: var(--red); }
+
+        .report-location {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .report-title {
+            border-bottom: 2px solid rgba(200,63,80,.58);
+            color: var(--red);
+            display: inline-block;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 22px;
+            font-weight: 700;
+            left: 38px;
+            line-height: 1.05;
+            position: absolute;
+            text-transform: uppercase;
+            top: 211px;
+            z-index: 4;
+        }
+
+        .watermark {
+            left: 275px;
+            opacity: .055;
+            position: absolute;
+            top: 233px;
+            width: 275px;
+            z-index: 1;
+        }
+
+        .details {
+            display: grid;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            gap: 4px 13px;
+            grid-template-columns: 200px 1fr;
+            left: 40px;
+            line-height: 1.08;
+            position: absolute;
+            top: 250px;
+            width: 530px;
+            z-index: 3;
+        }
+
+        .details dt {
+            color: #30384a;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .details dd {
+            color: #3159a3;
+            font-weight: 500;
+            margin: 0;
+            min-width: 0;
+        }
+
+        .details .strong-label,
+        .details .strong-value { font-weight: 800; }
+
+        .details .strong-value { color: var(--purple); }
+
+        .right-panel {
+            bottom: 76px;
+            left: 520px;
+            position: absolute;
+            right: 40px;
+            top: 175px;
+            z-index: 4;
+        }
+
+        .certificate-kind {
+            color: var(--red);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.04;
+            margin: 0 0 8px 50px;
+            text-align: center;
+            text-transform: uppercase;
+            width: 300px;
+        }
+
+        .photo-frame {
+            background: white;
+            border: 4px solid #4f4560;
+            height: 158px;
+            margin: 0 0 0 80px;
+            overflow: hidden;
+            padding: 7px;
+            width: 235px;
+        }
+
+        .photo-frame img {
+            display: block;
+            filter: saturate(.82) contrast(1.08);
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .sign-area {
+            height: 124px;
+            margin: 4px 0 0 50px;
+            position: relative;
+            text-align: center;
+            width: 350px;
+        }
+
+        .om {
+            color: var(--gold);
+            font-family: Georgia, serif;
+            font-size: 100px;
+            font-weight: 700;
+            left: -75px;
+            line-height: 1;
+            position: absolute;
+            top: -100px;
+        }
+
+        .signature {
+            height: 76px;
+            object-fit: contain;
+            position: absolute;
+            right: 7px;
+            top: -3px;
+            width: 220px;
+        }
+
+        .sign-divider {
+            background: linear-gradient(90deg, var(--gold), var(--blue));
+            height: 2px;
+            left: 4px;
+            position: absolute;
+            right: 4px;
+            top: 69px;
+        }
+
+        .sign-copy {
+            color: #3c4a88;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12.5px;
+            font-weight: 700;
+            left: 0;
+            letter-spacing: .025em;
+            line-height: 1.16;
+            position: absolute;
+            right: 0;
+            top: 75px;
+        }
+
+        .sign-copy strong {
+            color: #28355e;
+            display: block;
+            font-size: 15px;
+        }
+
+        .website {
+            color: var(--purple);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: .03em;
+            position: absolute;
+            right: 16px;
+            top: 244px;
+            writing-mode: vertical-rl;
+            z-index: 5;
+        }
+
+        .footer-strip {
+            align-items: end;
+            bottom: 18px;
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 320px 1fr 320px;
+            left: 34px;
+            position: absolute;
+            right: 34px;
+            z-index: 5;
+        }
+
+        .origin {
+            background: linear-gradient(90deg, #3157b5, #24488f);
+            border-radius: 20px 20px 3px 20px;
+            color: white;
+            font-size: 31px;
+            font-weight: 900;
+            letter-spacing: -.025em;
+            padding: 10px 14px 8px;
+            white-space: nowrap;
+        }
+
+        .origin b { color: #ffe13d; }
+
+        .accreditations {
+            align-items: center;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .accreditation-mark {
+            flex: 0 0 52px;
+            height: 52px;
+            overflow: hidden;
+            position: relative;
+            width: 52px;
+        }
+
+        .accreditation-mark img {
+            display: block;
+            mix-blend-mode: multiply;
+            object-fit: contain;
+            position: absolute;
+        }
+
+        .accreditation-mark.egac img {
+            height: 52px;
+            inset: 0;
+            width: 52px;
+        }
+
+        .accreditation-mark.iaf img {
+            height: 74px;
+            left: -8px;
+            top: -14px;
+            width: 74px;
+        }
+
+        .accreditation-mark.iso img {
+            height: 54px;
+            left: -18px;
+            top: 0;
+            width: 88px;
+        }
+
+        .footer-note {
+            color: #67758c;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 10px;
+            line-height: 1.25;
+            text-align: right;
+        }
+
+        .footer-note strong {
+            color: #354b74;
+            display: block;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .page { padding: 22px 12px 38px; }
+            .preview-heading { margin-bottom: 16px; }
+        }
+
+        @media print {
+            @page { margin: 0; size: landscape; }
+            body { background: white; }
+            .page { padding: 0; }
+            .preview-heading { display: none; }
+            .stage { margin: 0; }
+            .certificate { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <header class="preview-heading">
+            <span>Standalone design study</span>
+            <h1>Certificate Type 2 — first preview</h1>
+            <p>Responsive HTML replica using the supplied RBTL logo, signature and deity watermark. Sample values are placeholders for the future admin fields.</p>
+        </header>
+
+        <div id="stage" class="stage">
+            <div id="cardScale" class="card-scale">
+                <article class="certificate" aria-label="RBTL Rudraksha identification certificate preview">
+                    <header class="header">
+                        <div class="logo-lockup" aria-label="RBTL">
+                            <span class="logo-symbol">
+                                <img class="logo-art" src="public/images/rbtl/certificate-type-2/rbtl-logo.png" alt="">
+                            </span>
+                            <span class="logo-word">RBTL</span>
+                        </div>
+                        <div class="brand-rule" aria-hidden="true"></div>
+                        <img class="verification-qr" src="public/images/rbtl/certificate-type-2/verification-qr.png" alt="Scan to verify certificate 150068RD">
+                        <div class="lab-brand">
+                            <div class="rudraksha-mark">Rudraksha</div>
+                            <strong>Rudra Beads &amp; Gems Testing Lab</strong>
+                        </div>
+                    </header>
+
+                    <div class="report-meta">
+                        <div class="report-number">RBTL REPORT NO.- <b>150068RD</b></div>
+                        <div class="report-location">(RBTL/14), NEW DELHI, 09 JUNE, 2026</div>
+                    </div>
+
+                    <div class="report-title">Rudraksha Identification Report</div>
+
+                    <img class="watermark" src="public/images/rbtl/certificate-type-2/deity-watermark.png" alt="" aria-hidden="true">
+
+                    <dl class="details">
+                        <dt>Particulars :</dt><dd>One loose bead</dd>
+                        <dt>Color :</dt><dd>Brown</dd>
+                        <dt>Weight :</dt><dd>04.527 Gm</dd>
+                        <dt>Dimensions <small>(mm)</small> :</dt><dd>28.93 × 24.18 × 17.46</dd>
+                        <dt>Shape / Type :</dt><dd>Irregular oval / Bead</dd>
+                        <dt class="strong-label">Natural Faces:</dt><dd class="strong-value">Thirteen</dd>
+                        <dt>Artificial Faces:</dt><dd>None</dd>
+                        <dt>Test Carried Out:</dt><dd>X-Rays, Magnification</dd>
+                        <dt>X-Ray Results:</dt><dd>X-Ray shows 13 natural compartments</dd>
+                        <dt>Conclusions:</dt><dd>Results confirm natural origin</dd>
+                        <dt class="strong-label" style="color:#79428f;">GENUS / TYPE :</dt><dd class="strong-value">ELAEOCARPUS / E. GANITRUS</dd>
+                    </dl>
+
+                    <section class="right-panel">
+                        <h2 class="certificate-kind">Natural 13-Mukhi<br>Rudraksha</h2>
+                        <div class="photo-frame">
+                            <img src="public/images/rbtl/service-mukhi.png" alt="Certified Rudraksha bead">
+                        </div>
+                        <div class="sign-area">
+                            <span class="om">ॐ</span>
+                            <img class="signature" src="public/images/rbtl/certificate-type-2/signature.png" alt="Authorised signature">
+                            <span class="sign-divider"></span>
+                            <div class="sign-copy">
+                                <strong>(CHIEF GEMMOLOGIST)</strong>
+                                AUTHORISED RBTL SIGNATORY<br>
+                                Rudraksha &amp; Gem Identification Laboratory
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="website">WWW.RBTL.ONLINE</div>
+
+                    <footer class="footer-strip">
+                        <div class="origin">ORIGIN : <b>NEPAL</b></div>
+                        <div class="accreditations" aria-label="Accreditation marks">
+                            <span class="accreditation-mark egac">
+                                <img src="public/images/rbtl/certificate-type-2/egac-mark.jpeg" alt="EGAC accredited">
+                            </span>
+                            <span class="accreditation-mark iaf">
+                                <img src="public/images/rbtl/certificate-type-2/iaf-mark.png" alt="International Accreditation Forum">
+                            </span>
+                            <span class="accreditation-mark iso">
+                                <img src="public/images/rbtl/iso-certified.jpeg" alt="ISO 9001:2015 certified company">
+                            </span>
+                        </div>
+                        <div class="footer-note">
+                            <strong>RBTL — RUDRA BEADS TESTING LAB</strong>
+                            Analysis · Research · Authentication<br>
+                            Digitally verifiable certificate record
+                        </div>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const DESIGN_WIDTH = 950;
+        const DESIGN_HEIGHT = 620;
+        const stage = document.getElementById('stage');
+        const cardScale = document.getElementById('cardScale');
+
+        function fitCard() {
+            const scale = Math.min(1, stage.clientWidth / DESIGN_WIDTH);
+            cardScale.style.transform = `scale(${scale})`;
+            stage.style.height = `${DESIGN_HEIGHT * scale}px`;
+        }
+
+        window.addEventListener('resize', fitCard);
+        fitCard();
+    </script>
+</body>
+</html>

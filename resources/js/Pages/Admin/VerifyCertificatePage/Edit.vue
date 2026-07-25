@@ -193,6 +193,34 @@ const removeHelp = (index) => form.content.help.splice(index, 1);
                         <span>Remarks</span>
                         <input v-model="form.content.result.field_labels.remarks" type="text" />
                     </label>
+                    <label>
+                        <span>Particulars</span>
+                        <input v-model="form.content.result.field_labels.particulars" type="text" />
+                    </label>
+                    <label>
+                        <span>Natural Faces</span>
+                        <input v-model="form.content.result.field_labels.natural_faces" type="text" />
+                    </label>
+                    <label>
+                        <span>Artificial Faces</span>
+                        <input v-model="form.content.result.field_labels.artificial_faces" type="text" />
+                    </label>
+                    <label>
+                        <span>Test Carried Out</span>
+                        <input v-model="form.content.result.field_labels.test_carried_out" type="text" />
+                    </label>
+                    <label>
+                        <span>X-Ray Results</span>
+                        <input v-model="form.content.result.field_labels.xray_results" type="text" />
+                    </label>
+                    <label>
+                        <span>Conclusions</span>
+                        <input v-model="form.content.result.field_labels.conclusions" type="text" />
+                    </label>
+                    <label>
+                        <span>Genus / Type</span>
+                        <input v-model="form.content.result.field_labels.genus_type" type="text" />
+                    </label>
                 </div>
             </section>
 

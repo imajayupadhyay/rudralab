@@ -23,7 +23,10 @@ class CertificateController extends Controller
                     $query->where('certificate_number', 'like', "%{$search}%")
                         ->orWhere('customer_name', 'like', "%{$search}%")
                         ->orWhere('origin', 'like', "%{$search}%")
-                        ->orWhere('remarks', 'like', "%{$search}%");
+                        ->orWhere('remarks', 'like', "%{$search}%")
+                        ->orWhere('particulars', 'like', "%{$search}%")
+                        ->orWhere('natural_faces', 'like', "%{$search}%")
+                        ->orWhere('certificate_title', 'like', "%{$search}%");
                 });
             })
             ->latest()
@@ -32,6 +35,7 @@ class CertificateController extends Controller
             ->through(fn (Certificate $certificate): array => [
                 'id' => $certificate->id,
                 'certificate_number' => $certificate->certificate_number,
+                'card_type' => $certificate->card_type ?: Certificate::CARD_TYPE_ONE,
                 'customer_name' => $certificate->customer_name,
                 'issued_at' => $certificate->issued_at?->format('d M Y'),
                 'origin' => $certificate->origin,
@@ -99,6 +103,7 @@ class CertificateController extends Controller
     private function validatedData(CertificateRequest $request, ?Certificate $certificate = null): array
     {
         $data = $request->validated();
+        $data['card_type'] = $data['card_type'] ?? Certificate::CARD_TYPE_ONE;
         $data['is_active'] = $request->boolean('is_active');
 
         unset($data['image']);

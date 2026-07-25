@@ -19,6 +19,7 @@ class AdminCertificateDuplicateTest extends TestCase
         ]);
 
         $source = Certificate::create([
+            'card_type' => Certificate::CARD_TYPE_BOTH,
             'certificate_number' => 'VGTL/GEM/211554',
             'issued_at' => '2026-07-05',
             'customer_name' => 'Sample Customer',
@@ -30,6 +31,8 @@ class AdminCertificateDuplicateTest extends TestCase
             'specific_gravity' => 'N/A',
             'origin' => 'INDONESIA',
             'remarks' => 'KARUNGALI BRACELET',
+            'natural_faces' => 'Thirteen',
+            'certificate_title' => 'NATURAL 13-MUKHI RUDRAKSHA',
             'image_path' => '/images/rbtl/service-mukhi.png',
             'is_active' => true,
         ]);
@@ -42,8 +45,11 @@ class AdminCertificateDuplicateTest extends TestCase
                 ->component('Admin/Certificates/Create')
                 ->where('certificate.id', null)
                 ->where('certificate.certificate_number', 'VGTL/GEM/211555')
+                ->where('certificate.card_type', Certificate::CARD_TYPE_BOTH)
                 ->where('certificate.weight', '25-30 GMS')
                 ->where('certificate.remarks', 'KARUNGALI BRACELET')
+                ->where('certificate.natural_faces', 'Thirteen')
+                ->where('certificate.certificate_title', 'NATURAL 13-MUKHI RUDRAKSHA')
                 ->where('duplicateSource.id', $source->id)
                 ->where('duplicateSource.certificate_number', 'VGTL/GEM/211554'));
     }

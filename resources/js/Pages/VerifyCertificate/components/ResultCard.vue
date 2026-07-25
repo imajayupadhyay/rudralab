@@ -1,6 +1,7 @@
 <script setup>
 import QRCode from 'qrcode';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import CertificateTypeTwo from './CertificateTypeTwo.vue';
 
 // The certificate replica is drawn at a fixed design width so its layout and
 // proportions stay identical everywhere. On narrow screens we scale the whole
@@ -56,21 +57,36 @@ const detailMap = computed(() => Object.fromEntries(
 
 const fieldLabels = computed(() => props.content.result.field_labels || {});
 const preview = computed(() => props.content.certificate_preview || {});
+const cardType = computed(() => props.result.card_type || 'type_1');
+const showTypeOne = computed(() => ['type_1', 'both'].includes(cardType.value));
+const showTypeTwo = computed(() => ['type_2', 'both'].includes(cardType.value));
 
 const fieldValue = (key, fallback = 'N/A') => detailMap.value[key] || fallback;
 
-const detailRows = computed(() => [
-    { label: fieldLabels.value.certificate, value: fieldValue('Certificate') },
-    { label: fieldLabels.value.weight, value: fieldValue('Weight') },
-    { label: fieldLabels.value.shape_cut, value: fieldValue('Shape/Cut') },
-    { label: fieldLabels.value.dimension, value: fieldValue('Dimension') },
-    { label: fieldLabels.value.colour, value: fieldValue('Colour') },
-    { label: fieldLabels.value.refractive_index, value: fieldValue('Refractive Index') },
-    { label: fieldLabels.value.specific_gravity, value: fieldValue('Specific Gravity') },
-    { label: fieldLabels.value.origin, value: fieldValue('Origin') },
-    { label: fieldLabels.value.issued_to, value: fieldValue('Issued to') },
-    { label: fieldLabels.value.remarks, value: fieldValue('Remarks') },
-]);
+const labelByField = computed(() => ({
+    Certificate: fieldLabels.value.certificate || 'Certificate',
+    Weight: fieldLabels.value.weight || 'Weight',
+    'Shape/Cut': fieldLabels.value.shape_cut || 'Shape/Cut',
+    Dimension: fieldLabels.value.dimension || 'Dimension',
+    Colour: fieldLabels.value.colour || 'Colour',
+    'Refractive Index': fieldLabels.value.refractive_index || 'Refractive Index',
+    'Specific Gravity': fieldLabels.value.specific_gravity || 'Specific Gravity',
+    Origin: fieldLabels.value.origin || 'Origin',
+    'Issued to': fieldLabels.value.issued_to || 'Issued to',
+    Remarks: fieldLabels.value.remarks || 'Remarks',
+    Particulars: fieldLabels.value.particulars || 'Particulars',
+    'Natural Faces': fieldLabels.value.natural_faces || 'Natural Faces',
+    'Artificial Faces': fieldLabels.value.artificial_faces || 'Artificial Faces',
+    'Test Carried Out': fieldLabels.value.test_carried_out || 'Test Carried Out',
+    'X-Ray Results': fieldLabels.value.xray_results || 'X-Ray Results',
+    Conclusions: fieldLabels.value.conclusions || 'Conclusions',
+    'Genus / Type': fieldLabels.value.genus_type || 'Genus / Type',
+}));
+
+const detailRows = computed(() => (props.result.fields || []).map((field) => ({
+    label: labelByField.value[field.k] || field.k,
+    value: field.v,
+})));
 
 watch(
     () => props.verificationUrl,
@@ -95,6 +111,24 @@ watch(
     },
     { immediate: true },
 );
+
+watch(showTypeOne, async (visible) => {
+    if (!visible) {
+        return;
+    }
+
+    await nextTick();
+
+    if (fitEl.value) {
+        resizeObserver?.observe(fitEl.value);
+    }
+
+    if (cardEl.value) {
+        resizeObserver?.observe(cardEl.value);
+    }
+
+    recomputeScale();
+});
 
 onMounted(() => {
     resizeObserver = new ResizeObserver(recomputeScale);
@@ -199,7 +233,8 @@ onBeforeUnmount(() => {
                 </div>
             </div>
 
-            <div ref="fitEl" class="rbtl-cert-fit" :style="{ height: fitHeight }">
+            <div class="rbtl-certificate-previews">
+            <div v-if="showTypeOne" ref="fitEl" class="rbtl-cert-fit" :style="{ height: fitHeight }">
             <div
                 ref="cardEl"
                 class="rbtl-cert-scale"
@@ -315,6 +350,8 @@ onBeforeUnmount(() => {
             </aside>
             </div>
             </div>
+            <CertificateTypeTwo v-if="showTypeTwo" :result="result" :qr-code="qrCode" />
+            </div>
         </div>
     </section>
 </template>
@@ -327,6 +364,13 @@ onBeforeUnmount(() => {
 /* min-width:0 lets this shrink inside the grid track; the box is sized to the
    scaled card height by JS so no empty gap is left below it. */
 .rbtl-cert-fit {
+    min-width: 0;
+}
+
+.rbtl-certificate-previews {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
     min-width: 0;
 }
 
