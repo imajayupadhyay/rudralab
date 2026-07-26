@@ -247,12 +247,12 @@ onBeforeUnmount(() => {
                 <div class="rbtl-cert-head" style="display:grid;grid-template-columns:92px 1fr 104px;gap:16px;align-items:start;">
                     <div
                         class="rbtl-cert-logo"
-                        style="width:92px;height:92px;position:relative;overflow:hidden;"
+                        style="width:122px;height:92px;position:relative;overflow:hidden;"
                     >
                         <img
                             src="/images/rbtl/certificate-type-2/rbtl-logo.png"
                             :alt="preview.logo_text || 'RBTL'"
-                            style="height:170px;left:-10px;object-fit:contain;position:absolute;top:-40px;width:180px;"
+                            style="height:170px;left:-18px;object-fit:contain;position:absolute;top:-40px;width:180px;"
                         />
                     </div>
 
