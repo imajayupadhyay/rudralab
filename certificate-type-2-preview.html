@@ -181,16 +181,11 @@
             text-shadow: 0 2px 2px rgba(93,27,35,.14);
         }
 
-        .rudraksha-mark::before {
-            background: radial-gradient(circle at 34% 30%, #b66f40 0 6%, #6d2f1c 34%, #3f1d14 68%, #8f4f2f 100%);
-            border: 2px solid rgba(102,47,30,.42);
-            border-radius: 48% 52% 46% 54%;
-            box-shadow: inset 5px 2px 0 rgba(255,255,255,.12), 0 2px 4px rgba(52,25,17,.22);
-            content: '';
+        .rudraksha-image {
             display: block;
             height: 39px;
             margin: 0 auto 2px;
-            transform: rotate(-4deg);
+            object-fit: contain;
             width: 76px;
         }
 
@@ -506,7 +501,10 @@
                         <div class="brand-rule" aria-hidden="true"></div>
                         <img class="verification-qr" src="public/images/rbtl/certificate-type-2/verification-qr.png" alt="Scan to verify certificate 150068RD">
                         <div class="lab-brand">
-                            <div class="rudraksha-mark">Rudraksha</div>
+                            <div class="rudraksha-mark">
+                                <img class="rudraksha-image" src="public/images/rbtl/certificate-type-2/rudra.png" alt="Rudraksha">
+                                <span>Rudraksha</span>
+                            </div>
                             <strong>Rudra Beads &amp; Gems Testing Lab</strong>
                         </div>
                     </header>

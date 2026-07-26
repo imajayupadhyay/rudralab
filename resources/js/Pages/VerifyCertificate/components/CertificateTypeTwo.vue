@@ -76,7 +76,14 @@ onBeforeUnmount(() => {
                     :alt="`Scan to verify certificate ${result.number}`"
                 />
                 <div class="type-two-lab-brand">
-                    <div class="type-two-rudraksha-mark">Rudraksha</div>
+                    <div class="type-two-rudraksha-mark">
+                        <img
+                            class="type-two-rudraksha-image"
+                            src="/images/rbtl/certificate-type-2/rudra.png"
+                            alt="Rudraksha"
+                        />
+                        <span>Rudraksha</span>
+                    </div>
                     <strong>Rudra Beads &amp; Gems Testing Lab</strong>
                 </div>
             </header>
@@ -279,16 +286,11 @@ onBeforeUnmount(() => {
     text-shadow: 0 2px 2px rgba(93, 27, 35, 0.14);
 }
 
-.type-two-rudraksha-mark::before {
-    background: radial-gradient(circle at 34% 30%, #b66f40 0 6%, #6d2f1c 34%, #3f1d14 68%, #8f4f2f 100%);
-    border: 2px solid rgba(102, 47, 30, 0.42);
-    border-radius: 48% 52% 46% 54%;
-    box-shadow: inset 5px 2px 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(52, 25, 17, 0.22);
-    content: '';
+.type-two-rudraksha-image {
     display: block;
     height: 39px;
     margin: 0 auto 2px;
-    transform: rotate(-4deg);
+    object-fit: contain;
     width: 76px;
 }
 
