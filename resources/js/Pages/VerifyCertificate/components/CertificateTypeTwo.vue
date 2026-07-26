@@ -223,7 +223,7 @@ onBeforeUnmount(() => {
 
 .type-two-logo-symbol img {
     height: 140px;
-    left: -24px;
+    left: 0;
     object-fit: contain;
     position: absolute;
     top: -18px;
