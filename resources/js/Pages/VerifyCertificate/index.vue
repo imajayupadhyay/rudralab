@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
-import { Head, router } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import CertificateForm from './components/CertificateForm.vue';
 import HelpStrip from './components/HelpStrip.vue';
 import PageHero from './components/PageHero.vue';
@@ -71,9 +71,9 @@ const verify = () => {
 
     emptySubmitted.value = false;
 
-    router.get('/verify-certificate', { certificate: normalized }, {
-        preserveScroll: true,
-    });
+    const url = new URL('/verify-certificate', window.location.origin);
+    url.searchParams.set('certificate', normalized);
+    window.location.assign(url.toString());
 };
 
 const fillSample = () => {

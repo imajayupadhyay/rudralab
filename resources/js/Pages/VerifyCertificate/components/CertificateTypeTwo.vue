@@ -288,7 +288,7 @@ onBeforeUnmount(() => {
 
 .type-two-rudraksha-image {
     display: block;
-    height: 39px;
+    height: 52px;
     margin: 0 auto 2px;
     object-fit: contain;
     width: 76px;

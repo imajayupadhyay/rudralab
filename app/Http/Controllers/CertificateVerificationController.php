@@ -6,12 +6,21 @@ use App\Models\Certificate;
 use App\Support\VerifyCertificatePageContent;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
+use Inertia\Support\Header;
+use Symfony\Component\HttpFoundation\Response;
 
 class CertificateVerificationController extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): Response|InertiaResponse
     {
+        // Verification URLs are public, shareable documents. Always make an
+        // Inertia visit reload the full page so its JSON transport response can
+        // never be restored later as the document by a browser or proxy cache.
+        if ($request->header(Header::INERTIA)) {
+            return Inertia::location($request->fullUrl());
+        }
+
         $searched = Certificate::normalizeNumber((string) $request->query('certificate', ''));
         $certificate = null;
 
