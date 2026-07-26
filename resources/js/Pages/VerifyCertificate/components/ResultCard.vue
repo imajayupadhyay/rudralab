@@ -247,10 +247,13 @@ onBeforeUnmount(() => {
                 <div class="rbtl-cert-head" style="display:grid;grid-template-columns:92px 1fr 104px;gap:16px;align-items:start;">
                     <div
                         class="rbtl-cert-logo"
-                        style="width:92px;height:92px;border:4px solid #D9B64C;border-radius:50%;background:#173F58;display:grid;place-items:center;color:#F6F4EF;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;position:relative;overflow:hidden;"
+                        style="width:92px;height:92px;position:relative;overflow:hidden;"
                     >
-                        <span style="position:absolute;inset:12px;border:1px solid rgba(246,244,239,0.4);border-radius:50%;"></span>
-                        {{ preview.logo_text }}
+                        <img
+                            src="/images/rbtl/certificate-type-2/rbtl-logo.png"
+                            :alt="preview.logo_text || 'RBTL'"
+                            style="height:170px;left:-10px;object-fit:contain;position:absolute;top:-40px;width:180px;"
+                        />
                     </div>
 
                     <div class="rbtl-cert-title" style="min-width:0;">
@@ -333,7 +336,11 @@ onBeforeUnmount(() => {
                             style="width:100%;height:165px;object-fit:cover;object-position:center;border-radius:4px;"
                         />
                         <div style="display:flex;flex-direction:column;align-items:center;line-height:1;">
-                            <span style="font-family:'Great Vibes',cursive;font-size:24px;line-height:1;white-space:nowrap;color:#173F58;transform:rotate(-3deg);padding:0 6px;">{{ preview.signature_name }}</span>
+                            <img
+                                src="/images/rbtl/certificate-type-2/signature.png"
+                                :alt="preview.signature_name || 'Authorised signature'"
+                                style="display:block;height:54px;object-fit:contain;width:122px;"
+                            />
                             <span style="width:100%;height:1px;background:rgba(28,27,25,0.35);margin-top:2px;"></span>
                             <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#6B6862;margin-top:4px;">{{ preview.signature_label }}</span>
                         </div>
