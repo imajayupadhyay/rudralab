@@ -537,20 +537,21 @@ onBeforeUnmount(() => {
 
 .type-two-accreditation-mark.egac img {
     height: 52px;
-    inset: 0;
+    left: 0;
+    top: 0;
     width: 52px;
 }
 
 .type-two-accreditation-mark.iaf img {
     height: 74px;
-    left: -8px;
+    left: 0;
     top: -14px;
     width: 74px;
 }
 
 .type-two-accreditation-mark.iso img {
     height: 54px;
-    left: -18px;
+    left: 0;
     top: 0;
     width: 88px;
 }
