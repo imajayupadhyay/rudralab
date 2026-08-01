@@ -390,7 +390,7 @@
         .marks {
             bottom: 22px;
             height: 52px;
-            left: 389px;
+            left: 414px;
             position: absolute;
             width: 176px;
             z-index: 5;
@@ -448,7 +448,7 @@
             position: absolute;
             right: 34px;
             text-align: right;
-            width: 320px;
+            width: 300px;
             z-index: 5;
         }
 

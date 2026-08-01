@@ -494,8 +494,8 @@ onBeforeUnmount(() => {
     align-items: end;
     bottom: 18px;
     display: grid;
-    gap: 16px;
-    grid-template-columns: 320px 1fr 320px;
+    gap: 24px;
+    grid-template-columns: 320px 1fr 300px;
     left: 34px;
     position: absolute;
     right: 34px;
@@ -520,6 +520,7 @@ onBeforeUnmount(() => {
     display: flex;
     gap: 12px;
     justify-content: center;
+    margin-left: 10px;
 }
 
 .type-two-accreditation-mark {
