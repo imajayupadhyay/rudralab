@@ -40,6 +40,7 @@ class CertificateController extends Controller
                 'issued_at' => $certificate->issued_at?->format('d M Y'),
                 'origin' => $certificate->origin,
                 'is_active' => $certificate->is_active,
+                'available_download_types' => $certificate->availableDownloadTypes(),
             ]);
 
         return Inertia::render('Admin/Certificates/Index', [

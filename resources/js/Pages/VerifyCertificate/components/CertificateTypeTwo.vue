@@ -153,7 +153,7 @@ onBeforeUnmount(() => {
                         <img src="/images/rbtl/certificate-type-2/iaf-mark.png" alt="International Accreditation Forum" />
                     </span>
                     <span class="type-two-accreditation-mark iso">
-                        <img src="/images/rbtl/iso-certified.jpeg" alt="ISO 9001:2015 certified company" />
+                        <img src="/images/rbtl/certificate-type-2/iso-mark.jpeg" alt="ISO 9001:2015 certified company" />
                     </span>
                 </div>
                 <div class="type-two-footer-note">
@@ -532,30 +532,26 @@ onBeforeUnmount(() => {
 
 .type-two-accreditation-mark img {
     display: block;
+    height: 52px;
     mix-blend-mode: multiply;
     object-fit: contain;
     position: absolute;
-}
-
-.type-two-accreditation-mark.egac img {
-    height: 52px;
-    left: 0;
-    top: 0;
     width: 52px;
 }
 
-.type-two-accreditation-mark.iaf img {
-    height: 74px;
+.type-two-accreditation-mark.egac img {
     left: 0;
-    top: -14px;
-    width: 74px;
+    top: 0;
+}
+
+.type-two-accreditation-mark.iaf img {
+    left: 0;
+    top: 0;
 }
 
 .type-two-accreditation-mark.iso img {
-    height: 54px;
     left: 0;
     top: 0;
-    width: 88px;
 }
 
 .type-two-footer-note {

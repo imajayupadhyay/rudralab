@@ -247,12 +247,12 @@ onBeforeUnmount(() => {
                 <div class="rbtl-cert-head" style="display:grid;grid-template-columns:92px 1fr 104px;gap:16px;align-items:start;">
                     <div
                         class="rbtl-cert-logo"
-                        style="width:122px;height:92px;position:relative;overflow:hidden;"
+                        style="width:122px;height:92px;position:relative;overflow:visible;"
                     >
                         <img
                             src="/images/rbtl/certificate-type-2/rbtl-logo.png"
                             :alt="preview.logo_text || 'RBTL'"
-                            style="height:170px;left:-18px;object-fit:contain;position:absolute;top:-40px;width:180px;"
+                            style="height:126px;left:-20px;object-fit:contain;position:absolute;top:-17px;width:126px;"
                         />
                     </div>
 
@@ -260,15 +260,15 @@ onBeforeUnmount(() => {
                         <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;flex-wrap:wrap;">
                             <span
                                 class="rbtl-brand-sub"
-                                style="font-size:18px;font-weight:800;font-style:italic;letter-spacing:0.04em;line-height:1.1;color:#1C1B19;"
+                                style="font-size:17px;font-weight:800;font-style:italic;letter-spacing:0.04em;line-height:1.1;color:#1C1B19;"
                             >{{ preview.brand_title }}</span>
                         </div>
-                        <div class="rbtl-brand-tag" style="font-size:15px;font-weight:800;text-align:center;margin-top:7px;line-height:1.25;">
+                        <div class="rbtl-brand-tag" style="font-size:14px;font-weight:800;text-align:center;margin-top:7px;line-height:1.25;">
                             {{ preview.brand_tagline }}
                         </div>
                         <div style="height:1px;background:#B8B8B8;margin:8px 0 4px;"></div>
                         <div
-                            style="font-size:12px;font-weight:800;text-align:center;letter-spacing:0.08em;text-transform:uppercase;"
+                            style="font-size:11.5px;font-weight:800;text-align:center;letter-spacing:0.08em;text-transform:uppercase;"
                         >
                             {{ preview.report_title }}
                         </div>
@@ -286,44 +286,44 @@ onBeforeUnmount(() => {
                 </div>
 
                 <div class="rbtl-cert-body" style="display:grid;grid-template-columns:1fr 130px;gap:24px;margin-top:18px;align-items:end;">
-                    <div style="display:flex;flex-direction:column;gap:5px;">
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.certificate }}</strong>
                             <span style="font-weight:800;color:#D41414;">: {{ fieldValue('Certificate') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.weight }}</strong>
                             <span style="font-weight:800;color:#D41414;">: {{ fieldValue('Weight') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.shape_cut }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Shape/Cut') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.dimension }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Dimension') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.colour }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Colour') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.refractive_index }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Refractive Index') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.specific_gravity }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Specific Gravity') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.origin }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Origin') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.issued_to }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Issued to') }}</span>
                         </div>
-                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:17px;line-height:1.15;">
+                        <div class="rbtl-cert-line" style="display:grid;grid-template-columns:145px 1fr;gap:8px;font-size:16px;line-height:1.16;">
                             <strong>{{ fieldLabels.remarks }}</strong>
                             <span style="font-weight:800;">: {{ fieldValue('Remarks') }}</span>
                         </div>

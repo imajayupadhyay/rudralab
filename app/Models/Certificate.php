@@ -236,6 +236,34 @@ class Certificate extends Model
         return [self::CARD_TYPE_ONE, self::CARD_TYPE_TWO, self::CARD_TYPE_BOTH];
     }
 
+    /**
+     * @return list<string>
+     */
+    public static function downloadableCardTypes(): array
+    {
+        return [self::CARD_TYPE_ONE, self::CARD_TYPE_TWO];
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function availableDownloadTypes(): array
+    {
+        return array_values(array_filter(
+            self::downloadableCardTypes(),
+            fn (string $cardType): bool => $this->supportsCardType($cardType),
+        ));
+    }
+
+    public function supportsCardType(string $cardType): bool
+    {
+        return match ($cardType) {
+            self::CARD_TYPE_ONE => $this->showsTypeOne(),
+            self::CARD_TYPE_TWO => $this->showsTypeTwo(),
+            default => false,
+        };
+    }
+
     public function showsTypeOne(): bool
     {
         return in_array($this->card_type ?: self::CARD_TYPE_ONE, [self::CARD_TYPE_ONE, self::CARD_TYPE_BOTH], true);

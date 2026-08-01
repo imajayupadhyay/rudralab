@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Admin\CertificateDownloadController;
 use App\Http\Controllers\Admin\ContactPageController;
 use App\Http\Controllers\Admin\ContactSubmissionController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -31,6 +32,8 @@ Route::prefix('rbtl')->name('admin.')->middleware('noindex')->group(function () 
         Route::put('footer', [FooterController::class, 'update'])->name('footer.update');
         Route::resource('contact-submissions', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
         Route::resource('users', AdminUserController::class)->except(['show']);
+        Route::post('certificates/download', [CertificateDownloadController::class, 'bulk'])->name('certificates.download.bulk');
+        Route::get('certificates/{certificate}/download/{cardType}', [CertificateDownloadController::class, 'show'])->name('certificates.download');
         Route::get('certificates/{certificate}/duplicate', [CertificateController::class, 'duplicate'])->name('certificates.duplicate');
         Route::resource('certificates', CertificateController::class)->except(['show']);
         Route::get('content', fn () => Inertia::render('Admin/Placeholder', [
